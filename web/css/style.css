@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito|Open+Sans');
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ *my stack colors
+ *#23262d - almost black
+ *#edbc40 - sand
+ *#4a93b5 - almost blue
+ *#1142d6 - blue
+ *#db534e - burgundy
+ *#f7e13b - yellow
+ */
+
+/*Styles for header*/
+.login_button a {
+  float: right;
+  padding: 6px;
+  background: #3c64dd;
+  color: #fffffa;
+  border: 1px solid #040505;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-right: 4px;
+}
+
+.login_button a:hover{
+  background: #1142d6;
+}

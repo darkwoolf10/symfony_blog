@@ -2,4 +2,17 @@
 {% block title %}{{ 'My blog' }}{% endblock %}
 
 {% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-lg-4">
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.content }}</p>
+                    <p><a class="btn btn-primary" href="#" role="button">View details »</a></p>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
 {% endblock %}

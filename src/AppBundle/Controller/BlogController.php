@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class BlogController extends Controller
 {
@@ -20,7 +21,12 @@ class BlogController extends Controller
      */
     public function showAction()
     {
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+
+        $posts = $repository->findAll();
+
         return $this->render('blog/show.html.twig', [
+            'posts' => $posts,
         ]);
     }
 
@@ -32,18 +38,28 @@ class BlogController extends Controller
         $post = new Post();
         $post->setTitle('');
         $post->setContent('');
-        $post->setAuthor('root');
+        $post->setAuthor('');
 
         $form = $this->createFormBuilder($post)
-            ->add('title', TextType::class)
-            ->add('content', TextareaType::class)
+            ->add('title', TextType::class, [
+                'required' => true,
+                'constraints' => [new Length(['min' => 4])],
+                'attr' => ['placeholder' => 'Your title'],
+            ])
+            ->add('content', TextareaType::class, [
+                'required' => true,
+                'constraints' => [new Length(['min' => 15])],
+                'attr' => ['placeholder' => 'Your content'],
+            ])
             ->add('author', TextType::class, [
-
+                'required' => false,
+                'attr' => ['placeholder' => 'admin'],
             ])
             ->add('save', SubmitType::class, ['label' => 'Create post'])
             ->getForm();
 
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
@@ -62,6 +78,5 @@ class BlogController extends Controller
 
     public function listAction()
     {
-
     }
 }
