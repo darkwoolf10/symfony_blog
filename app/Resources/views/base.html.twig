@@ -4,9 +4,9 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-            <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+            <link rel="stylesheet" href="{{ asset('vendor/font-awesome-4.7.0/css/font-awesome.min.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -22,18 +22,36 @@
                                 <a class="nav-link" href="{{ path('create_post') }}" >Create post <span class="sr-only">(current)</span></a>
                             </li>
                         </ul>
-                        <span class="login_button">
-                            <a href="#">Sign in</a>
-                        </span>
-                        <span class="login_button">
-                            <a href="#">Sign up</a>
-                        </span>
+                        <a href="#">
+                        <button type="button" class="btn btn-primary login">Sign in</button>
+                        </a>
+                        <a href="#">
+                            <button type="button" class="btn btn-primary login">Sign up</button>
+                        </a>
                     </div>
                 </nav>
             </header>
+            <br>
         {% endblock %}
 
-        {% block body %}{% endblock %}
+        <div class="container-fluid">
+            <div class="row">
+                {% block category %}
+                    <nav class="col-sm-3 col-md-2 sidebar">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action">Posts</a>
+                            <a href="#" class="list-group-item list-group-item-action">News</a>
+                            <a href="#" class="list-group-item list-group-item-action">My life</a>
+                        </div>
+                    </nav>
+                {% endblock %}
+                <div class="col-sm-9 ml-sm-auto col-md-10">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
+
 
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

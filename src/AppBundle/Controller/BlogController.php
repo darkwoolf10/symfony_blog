@@ -19,7 +19,7 @@ class BlogController extends Controller
     /**
      * @Route("/blog", name="homepage")
      */
-    public function showAction()
+    public function listAction()
     {
         $repository = $this->getDoctrine()->getRepository(Post::class);
 
@@ -71,12 +71,55 @@ class BlogController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('blog/create.html.twig', array(
+        return $this->render('blog/create.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
-    public function listAction()
+    /**
+     * @Route("/blog/{id}", name="show_post")
+     */
+    public function showAction($id)
     {
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+
+        $post = $repository->find($id);
+
+        return $this->render('/blog/post.html.twig', [
+            'post' => $post,
+        ]);
     }
+
+    /**
+     * @Route("/delete_post/{id}", name="delete_post")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository(Post::class)->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException(
+                'No post found for id '.$id
+            );
+        }
+
+        $em->remove($post);
+        $em->flush();
+
+        return $this->redirectToRoute('homepage');
+    }
+
+    /**
+     * @Route("edit_post/{id}", name="edit_post")
+     */
+    public function editAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository(Post::class)->find($id);
+
+        return new Response('Пока нету редактирования поста №'.$id);
+
+    }
+
 }

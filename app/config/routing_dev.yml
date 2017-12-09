@@ -15,8 +15,20 @@ _main:
 
 homepage:
     path: /blog
-    defaults: { _controller: AppBundle:Blog:show }
+    defaults: { _controller: AppBundle:Blog:list }
 
 create_post:
     path: /blog/create
     defaults: { _controller: AppBundle:Blog:create }
+
+show_post:
+  path: /blog/{id}
+  defaults: { _controller: AppBundle:Blog:show }
+
+delete_post:
+    path: /delete_post/{id}
+    defaults: {_controller: AppBundle:Blog:delete}
+
+edit_post:
+    path: /edit_post/{id}
+    defaults: {_controller: AppBundle:Blog:edit}

@@ -29,3 +29,20 @@
 .login_button a:hover{
   background: #1142d6;
 }
+
+.post_body {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.right {
+  float: right;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.login {
+  margin-right: 7px;
+}
