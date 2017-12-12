@@ -2,16 +2,18 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity\Post;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\Length;
+use AppBundle\Entity\Post;
+use AppBundle\Entity\Category;
 
 class BlogController extends Controller
 {
@@ -19,13 +21,14 @@ class BlogController extends Controller
     /**
      * @Route("/blog", name="homepage")
      */
-    public function listAction()
+    public function indexAction()
     {
         $repository = $this->getDoctrine()->getRepository(Post::class);
 
         $posts = $repository->findAll();
 
-        return $this->render('blog/show.html.twig', [
+        return $this->render(
+            '@App/blog/index.html.twig', [
             'posts' => $posts,
         ]);
     }
@@ -39,6 +42,9 @@ class BlogController extends Controller
         $post->setTitle('');
         $post->setContent('');
         $post->setAuthor('');
+
+//        $category = new Category();
+//        $category->setName('');
 
         $form = $this->createFormBuilder($post)
             ->add('title', TextType::class, [
@@ -58,6 +64,8 @@ class BlogController extends Controller
             ->add('save', SubmitType::class, ['label' => 'Create post'])
             ->getForm();
 
+//        $category_field = $this->createForm(TextType::class, $category);
+
         $form->handleRequest($request);
 
 
@@ -71,7 +79,7 @@ class BlogController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('blog/create.html.twig', [
+        return $this->render('@App/blog/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -85,7 +93,14 @@ class BlogController extends Controller
 
         $post = $repository->find($id);
 
-        return $this->render('/blog/post.html.twig', [
+        if (!$post) {
+            return $this->redirectToRoute('homepage');
+        }
+
+        dump($post);
+
+        return $this->render(
+            '@App/blog/show.html.twig', [
             'post' => $post,
         ]);
     }

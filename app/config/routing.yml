@@ -3,5 +3,5 @@ app:
     type: annotation
 
 #homepage:
-#    path: /blog
+#    path: /views
 #    defaults: { _controller: AppBundle:Blog:show }

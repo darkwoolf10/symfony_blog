@@ -15,7 +15,7 @@ _main:
 
 homepage:
     path: /blog
-    defaults: { _controller: AppBundle:Blog:list }
+    defaults: { _controller: AppBundle:Blog:index }
 
 create_post:
     path: /blog/create
