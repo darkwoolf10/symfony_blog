@@ -31,12 +31,11 @@ class Post
      */
     private $content;
 
-//    /**
-//     * @Assert\Valid()
-//     * @ORM\ManyToOne(targetEntity="Category", inversedBy="post")
-//     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-//     */
-//    private $category;
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="post")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
 
     /**
      * @Assert\NotBlank()
@@ -53,6 +52,11 @@ class Post
     {
         return $this->id;
     }
+
+//    public function __construct()
+//    {
+//        $this->category = new ArrayCollection();
+//    }
 
     /**
      * Set title
@@ -102,16 +106,6 @@ class Post
         return $this->content;
     }
 
-//    public function getCategory()
-//    {
-//        return $this->category;
-//    }
-//
-//    public function setCategory(Category $category = null)
-//    {
-//        $this->category = $category;
-//    }
-
     /**
      * @param string $author
      *
@@ -134,4 +128,19 @@ class Post
         return $this->author;
     }
 
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
 }

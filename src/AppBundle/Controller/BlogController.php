@@ -21,15 +21,27 @@ class BlogController extends Controller
     /**
      * @Route("/blog", name="homepage")
      */
-    public function indexAction()
+    public function indexAction(Request $request    )
     {
-        $repository = $this->getDoctrine()->getRepository(Post::class);
+//        $repository = $this->getDoctrine()->getRepository(Post::class);
+//
+//        $posts = $repository->findAll();
 
-        $posts = $repository->findAll();
+        $em    = $this->get('doctrine.orm.entity_manager');
+        $dql   = "SELECT a FROM AppBundle:Post a";
+        $query = $em->createQuery($dql);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
 
         return $this->render(
             '@App/blog/index.html.twig', [
-            'posts' => $posts,
+//            'posts' => $posts,
+            'pagination' => $pagination,
         ]);
     }
 
@@ -39,12 +51,6 @@ class BlogController extends Controller
     public function createAction(Request $request)
     {
         $post = new Post();
-        $post->setTitle('');
-        $post->setContent('');
-        $post->setAuthor('');
-
-//        $category = new Category();
-//        $category->setName('');
 
         $form = $this->createFormBuilder($post)
             ->add('title', TextType::class, [
@@ -61,17 +67,17 @@ class BlogController extends Controller
                 'required' => false,
                 'attr' => ['placeholder' => 'admin'],
             ])
+            ->add('category', ChoiceType::class, [
+                'required' => false,
+                'attr' => ['placeholder' => 'all'],
+            ])
             ->add('save', SubmitType::class, ['label' => 'Create post'])
             ->getForm();
-
-//        $category_field = $this->createForm(TextType::class, $category);
 
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post = $form->getData();
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();

@@ -2,14 +2,20 @@
 {% block title %}{{ 'My views' }}{% endblock %}
 
 {% block body %}
-        {% for post in posts %}
-            <div class="list-group">
-                <div class="list-group-item list-group-item-primary"><h2>{{ post.title }}</h2></div>
-                <div class="list-group-item">
-                    <p>{{ post.content }}</p>
-                    <p><a class="btn btn-primary right" href="{{ path('show_post', {'id': post.id}) }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Read more</a></p>
-                </div>
+    <div class="count">
+        <h3>Number of posts: {{ pagination.getTotalItemCount }}</h3>
+        <hr>
+    </div>
+    {{ knp_pagination_render(pagination) }}
+    {% for post in pagination %}
+        <div class="list-group">
+            <div class="list-group-item list-group-item-primary"><h2>{{ post.title }}</h2></div>
+            <div class="list-group-item">
+                <p>{{ post.content }}</p>
+                <p><a class="btn btn-primary right" href="{{ path('show_post', {'id': post.id}) }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Read more</a></p>
             </div>
-            <br>
-        {% endfor %}
+        </div>
+        <br>
+    {% endfor %}
+
 {% endblock %}
