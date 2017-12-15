@@ -2,18 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\AppBundle;
+use AppBundle\Form\PostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints\Length;
 use AppBundle\Entity\Post;
-use AppBundle\Entity\Category;
 
 class BlogController extends Controller
 {
@@ -21,14 +15,10 @@ class BlogController extends Controller
     /**
      * @Route("/blog", name="homepage")
      */
-    public function indexAction(Request $request    )
+    public function indexAction(Request $request)
     {
-//        $repository = $this->getDoctrine()->getRepository(Post::class);
-//
-//        $posts = $repository->findAll();
-
         $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT a FROM AppBundle:Post a";
+        $dql   = "SELECT article FROM AppBundle:Post article";
         $query = $em->createQuery($dql);
 
         $paginator  = $this->get('knp_paginator');
@@ -40,7 +30,6 @@ class BlogController extends Controller
 
         return $this->render(
             '@App/blog/index.html.twig', [
-//            'posts' => $posts,
             'pagination' => $pagination,
         ]);
     }
@@ -52,28 +41,7 @@ class BlogController extends Controller
     {
         $post = new Post();
 
-        $form = $this->createFormBuilder($post)
-            ->add('title', TextType::class, [
-                'required' => true,
-                'constraints' => [new Length(['min' => 4])],
-                'attr' => ['placeholder' => 'Your title'],
-            ])
-            ->add('content', TextareaType::class, [
-                'required' => true,
-                'constraints' => [new Length(['min' => 15])],
-                'attr' => ['placeholder' => 'Your content'],
-            ])
-            ->add('author', TextType::class, [
-                'required' => false,
-                'attr' => ['placeholder' => 'admin'],
-            ])
-            ->add('category', ChoiceType::class, [
-                'required' => false,
-                'attr' => ['placeholder' => 'all'],
-            ])
-            ->add('save', SubmitType::class, ['label' => 'Create post'])
-            ->getForm();
-
+        $form = $this->createForm(PostType::class);
         $form->handleRequest($request);
 
 
@@ -102,8 +70,6 @@ class BlogController extends Controller
         if (!$post) {
             return $this->redirectToRoute('homepage');
         }
-
-        dump($post);
 
         return $this->render(
             '@App/blog/show.html.twig', [
@@ -136,8 +102,8 @@ class BlogController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $post = $em->getRepository(Post::class)->find($id);
+        //$em = $this->getDoctrine()->getManager();
+        //$post = $em->getRepository(Post::class)->find($id);
 
         return new Response('Пока нету редактирования поста №'.$id);
 

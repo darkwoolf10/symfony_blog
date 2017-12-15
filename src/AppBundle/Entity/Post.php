@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PostRepository")
  * @ORM\Table(name="post")
  */
 class Post
@@ -53,14 +53,17 @@ class Post
         return $this->id;
     }
 
-//    public function __construct()
-//    {
-//        $this->category = new ArrayCollection();
-//    }
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
 
     /**
-     * Set title
-     *
      * @param string $title
      *
      * @return Post

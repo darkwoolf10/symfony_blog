@@ -13,7 +13,6 @@ class LoadFixtures implements FixtureInterface
     {
         $category = new Category();
         $category->setName('Category'.rand(1, 100));
-
         $manager->persist($category);
         $manager->flush();
     }
