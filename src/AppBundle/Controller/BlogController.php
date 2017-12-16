@@ -117,26 +117,4 @@ class BlogController extends Controller
 
     }
 
-    /**
-     * @Route("/category/{categoryId}", name="category")
-     */
-    public function categoryAction($categoryId, EntityManagerInterface $em)
-    {
-        // Для того чтобы посты отображалось меню категорий
-        $categories = $em->getRepository('AppBundle:Category')
-            ->findAll();
-
-        $category = $em->getRepository('AppBundle:Category')
-            ->find($categoryId);
-        $posts = $category->getPost();
-
-        dump($category);
-        return $this->render(
-            '@App/blog/category.html.twig', [
-            'categories' => $categories,
-            'category' => $category,
-            'posts' => $posts,
-        ]);
-    }
-
 }
