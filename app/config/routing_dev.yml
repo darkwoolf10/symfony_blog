@@ -32,3 +32,6 @@ delete_post:
 edit_post:
     path: /edit_post/{id}
     defaults: {_controller: AppBundle:Blog:edit}
+category:
+    path: /category/{categoryId}
+    defaults: {_controller: AppBundle:Blog:category}

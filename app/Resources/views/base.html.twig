@@ -39,9 +39,9 @@
                 {% block category %}
                     <nav class="col-sm-3 col-md-2 sidebar">
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action">Posts</a>
-                            <a href="#" class="list-group-item list-group-item-action">News</a>
-                            <a href="#" class="list-group-item list-group-item-action">My life</a>
+                            {% for category in categories %}
+                                <a href="{{ path('category', {'categoryId': category.id }) }}" class="list-group-item list-group-item-action">{{ category.name }}</a>
+                            {% endfor %}
                         </div>
                     </nav>
                 {% endblock %}
