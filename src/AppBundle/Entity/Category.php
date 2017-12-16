@@ -28,6 +28,22 @@ class Category
      */
     private $post;
 
+    /**
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param mixed $post
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+    }
+
     public function __construct()
     {
         $this->post = new ArrayCollection();

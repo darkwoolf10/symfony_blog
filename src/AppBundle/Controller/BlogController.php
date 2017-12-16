@@ -2,11 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
 use AppBundle\Form\PostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Entity\Post;
 
 class BlogController extends Controller
@@ -41,7 +43,7 @@ class BlogController extends Controller
     {
         $post = new Post();
 
-        $form = $this->createForm(PostType::class);
+        $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
 
@@ -67,6 +69,7 @@ class BlogController extends Controller
 
         $post = $repository->find($id);
 
+        dump($post);
         if (!$post) {
             return $this->redirectToRoute('homepage');
         }
@@ -109,4 +112,15 @@ class BlogController extends Controller
 
     }
 
+    /**
+     * @Route("/category/{id}")
+     */
+    public function categoryAction($id)
+    {
+
+        return $this->render(
+            '@App/blog/category.html.twig', [
+
+        ]);
+    }
 }

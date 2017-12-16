@@ -32,6 +32,7 @@ class Post
     private $content;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="post")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
@@ -51,16 +52,6 @@ class Post
     public function getId()
     {
         return $this->id;
-    }
-
-    public function setCategory($category)
-    {
-        $this->category = $category;
-    }
-
-    public function getCategory()
-    {
-        return $this->category;
     }
 
     /**
@@ -122,8 +113,6 @@ class Post
     }
 
     /**
-     * Get content
-     *
      * @return string
      */
     public function getAuthor()
@@ -131,15 +120,15 @@ class Post
         return $this->author;
     }
 
-
+    /**
+     * @return mixed
+     */
     public function getCategory()
     {
         return $this->category;
     }
 
     /**
-     * Get category
-     *
      * @return string
      */
     public function setCategory($category)

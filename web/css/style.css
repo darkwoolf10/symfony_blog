@@ -46,3 +46,8 @@
 .login {
   margin-right: 7px;
 }
+
+.category_label {
+  padding: 1%;
+  background: antiquewhite
+}

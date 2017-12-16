@@ -20,22 +20,13 @@ class PostType extends AbstractType
             ->add('title', TextType::class)
             ->add('content', TextareaType::class)
             ->add('author', TextType::class)
-//            ->add('category', ChoiceType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create post'])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'Category',
+                'choice_label' => 'name',
                 'multiple' => false
-            ]);
+            ])
+            ->add('save', SubmitType::class, ['label' => 'Create post'])
         ;
-//        $builder->add('users', EntityType::class, array(
-//            'class' => Category::class,
-//            'query_builder' => function (EntityRepository $er) {
-//                return $er->createQueryBuilder('c')
-//                    ->orderBy('c.name', 'ASC');
-//            },
-//            'choice_label' => 'category',
-//        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
