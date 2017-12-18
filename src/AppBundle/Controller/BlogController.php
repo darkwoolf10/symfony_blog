@@ -32,7 +32,6 @@ class BlogController extends Controller
 
         $categories = $em->getRepository('AppBundle:Category')
             ->findAll();
-        dump($categories);
 
         return $this->render(
             '@App/blog/index.html.twig', [
@@ -51,6 +50,9 @@ class BlogController extends Controller
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
+        $em = $this->get('doctrine.orm.entity_manager');
+        $categories = $em->getRepository('AppBundle:Category')
+            ->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -62,6 +64,7 @@ class BlogController extends Controller
 
         return $this->render('@App/blog/create.html.twig', [
             'form' => $form->createView(),
+            'categories' => $categories,
         ]);
     }
 
@@ -130,7 +133,6 @@ class BlogController extends Controller
             ->find($categoryId);
         $posts = $category->getPost();
 
-        dump($category);
         return $this->render(
             '@App/blog/category.html.twig', [
             'categories' => $categories,
