@@ -30,13 +30,9 @@ class BlogController extends Controller
             5/*limit per page*/
         );
 
-        $categories = $em->getRepository('AppBundle:Category')
-            ->findAll();
-
         return $this->render(
             '@App/blog/index.html.twig', [
             'pagination' => $pagination,
-            'categories' => $categories,
         ]);
     }
 
@@ -50,10 +46,6 @@ class BlogController extends Controller
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
-        $em = $this->get('doctrine.orm.entity_manager');
-        $categories = $em->getRepository('AppBundle:Category')
-            ->findAll();
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
@@ -64,7 +56,6 @@ class BlogController extends Controller
 
         return $this->render('@App/blog/create.html.twig', [
             'form' => $form->createView(),
-            'categories' => $categories,
         ]);
     }
 
@@ -77,7 +68,6 @@ class BlogController extends Controller
 
         $post = $repository->find($id);
 
-        dump($post);
         if (!$post) {
             return $this->redirectToRoute('homepage');
         }
@@ -125,17 +115,12 @@ class BlogController extends Controller
      */
     public function categoryAction($categoryId, EntityManagerInterface $em)
     {
-        // Для того чтобы посты отображалось меню категорий
-        $categories = $em->getRepository('AppBundle:Category')
-            ->findAll();
-
         $category = $em->getRepository('AppBundle:Category')
             ->find($categoryId);
         $posts = $category->getPost();
 
         return $this->render(
             '@App/blog/category.html.twig', [
-            'categories' => $categories,
             'category' => $category,
             'posts' => $posts,
         ]);
