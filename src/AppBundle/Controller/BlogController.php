@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Category;
 use AppBundle\Form\PostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -101,12 +100,23 @@ class BlogController extends Controller
     /**
      * @Route("edit_post/{id}", name="edit_post")
      */
-    public function editAction($id)
+    public function editAction(Request $request, Post $post)
     {
-        //$em = $this->getDoctrine()->getManager();
-        //$post = $em->getRepository(Post::class)->find($id);
+        $form = $this->createForm(PostType::class, $post);
 
-        return new Response('Пока нету редактирования поста №'.$id);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+
+            $this->addFlash('success', 'Post updated!');
+
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render('@App/blog/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
 
     }
 

@@ -19,13 +19,12 @@ class PostType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('content', TextareaType::class)
-            ->add('author', TextType::class)
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'multiple' => false
             ])
-            ->add('save', SubmitType::class, ['label' => 'Create post'])
+            ->add('save', SubmitType::class, ['label' => 'Submit'])
         ;
     }
 
