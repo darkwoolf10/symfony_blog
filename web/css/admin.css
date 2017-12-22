@@ -1,0 +1,10 @@
+header {
+  border-bottom:1px solid #007bff;
+}
+.center-block {
+  margin-top: 20%;
+}
+
+button {
+  cursor: pointer;
+}

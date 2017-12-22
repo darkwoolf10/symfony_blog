@@ -1,0 +1,33 @@
+{# This page created for admin and login page#}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+{% block header %}
+    <header>
+        <nav class="navbar navbar-expand-sm bg-light navbar-light">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('homepage') }}"><h5>Main page</h5></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+{% endblock %}
+
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+
+</body>
+</html>

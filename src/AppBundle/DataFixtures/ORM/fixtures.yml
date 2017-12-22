@@ -1,0 +1,21 @@
+AppBundle\Entity\Post:
+    post_{1..5}:
+      title: post+<current()>
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur culpa laborum nesciunt quidem? Adipisci dolor eum explicabo harum labore quae, quibusdam quod quos repudiandae sed similique, totam ut veniam?
+      category: "Post"
+
+AppBundle\Entity\Post:
+    post_{1..5}:
+      title: post+<current()>
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur culpa laborum nesciunt quidem? Adipisci dolor eum explicabo harum labore quae, quibusdam quod quos repudiandae sed similique, totam ut veniam?
+      category: "News"
+
+AppBundle\Entity\Post:
+    post_{1..5}:
+      title: post+<current()>
+      content: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur culpa laborum nesciunt quidem? Adipisci dolor eum explicabo harum labore quae, quibusdam quod quos repudiandae sed similique, totam ut veniam?
+      category: "My life"
+
+AppBundle\Entity\User:
+    user_{1..10}:
+        email: example+<current()>@gmail.com

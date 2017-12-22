@@ -24,7 +24,7 @@ class PostType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => false
             ])
-            ->add('save', SubmitType::class, ['label' => 'Submit'])
+            ->add('save', SubmitType::class, ['label' => 'Save post'])
         ;
     }
 

@@ -20,7 +20,7 @@ class Post
     private $id;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank()php bin/console doctrine:schema:update --force
      * @ORM\Column(type="string", length=100)
      */
     private $title;
@@ -39,13 +39,6 @@ class Post
     private $category;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=100)
-     */
-    private $author;
-
-    /**
-     * Get id
      *
      * @return int
      */
@@ -67,7 +60,6 @@ class Post
     }
 
     /**
-     * Get title
      *
      * @return string
      */
@@ -77,7 +69,6 @@ class Post
     }
 
     /**
-     * Set content
      *
      * @param string $content
      *
@@ -91,33 +82,12 @@ class Post
     }
 
     /**
-     * Get content
      *
      * @return string
      */
     public function getContent()
     {
         return $this->content;
-    }
-
-    /**
-     * @param string $author
-     *
-     * @return Post
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAuthor()
-    {
-        return $this->author;
     }
 
     /**

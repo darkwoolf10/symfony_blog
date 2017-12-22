@@ -3,117 +3,62 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Table(name="app_users")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Entity
+ * @ORM\Table(name="user")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
 
     /**
-     * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $salt;
-
-    /**
-     * @ORM\Column(type="string", length=60, unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     private $email;
 
-    /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
+    private $password;
 
-    /**
-     * @return mixed
-     */
     public function getUsername()
     {
-        return $this->username;
-    }
-
-    /**
-     * @param mixed $username
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    public function getSalt()
-    {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
+        return $this->email;
     }
 
     public function getPassword()
     {
-        return $this->password;
+
     }
 
-    /**
-     * @return mixed
-     */
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
     public function getEmail()
     {
         return $this->email;
     }
 
-    /**
-     * @param mixed $email
-     */
     public function setEmail($email)
     {
         $this->email = $email;
-    }
-
-    public function getRoles()
-    {
-        return array('ROLE_USER');
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-            $this->salt,
-        ));
-    }
-
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            $this->salt
-            ) = unserialize($serialized);
     }
 }

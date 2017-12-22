@@ -73,6 +73,10 @@ class ComposerStaticInit99e9553210a7ec0efdc73551299a306c
         array (
             'Incenteev\\ParameterHandler\\' => 27,
         ),
+        'H' => 
+        array (
+            'Hautelook\\AliceBundle\\' => 22,
+        ),
         'F' => 
         array (
             'Fig\\Link\\' => 9,
@@ -219,6 +223,10 @@ class ComposerStaticInit99e9553210a7ec0efdc73551299a306c
         'Incenteev\\ParameterHandler\\' => 
         array (
             0 => __DIR__ . '/..' . '/incenteev/composer-parameter-handler',
+        ),
+        'Hautelook\\AliceBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hautelook/alice-bundle/src',
         ),
         'Fig\\Link\\' => 
         array (

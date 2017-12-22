@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Form\PostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Entity\Post;
@@ -18,15 +17,14 @@ class BlogController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT article FROM AppBundle:Post article";
-        $query = $em->createQuery($dql);
+        $em    = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('AppBundle:Post')->findAll();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $query, /* query NOT result */
+            $posts,
             $request->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
+            $request->query->getInt('limit', 6)/*limit per page*/
         );
 
         return $this->render(
