@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\PostType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +35,7 @@ class BlogController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/blog/create")
      */
     public function createAction(Request $request)
@@ -76,6 +78,7 @@ class BlogController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/delete_post/{id}", name="delete_post")
      */
     public function deleteAction($id)
@@ -96,6 +99,7 @@ class BlogController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("edit_post/{id}", name="edit_post")
      */
     public function editAction(Request $request, Post $post)

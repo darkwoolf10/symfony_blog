@@ -37,6 +37,9 @@ category:
     path: /category/{categoryId}
     defaults: {_controller: AppBundle:Blog:category}
 
-login_page:
+login:
     path: /login
     defaults: {_controller: AppBundle:Security:login}
+
+logout:
+    path: /logout
