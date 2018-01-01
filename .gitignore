@@ -1,2 +1,5 @@
 /.idea/
 /var
+/app/config/parameters.yml
+/vendor
+/node_modules

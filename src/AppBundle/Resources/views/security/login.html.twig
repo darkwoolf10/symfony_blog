@@ -1,16 +1,24 @@
 {% extends "layout.html.twig" %}
 {% block body %}
-
-    {% if error %}
-        <div class="alert alert-danger">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-    {% endif %}
     <div class="center-block">
-        {{ form_start(form) }}
-            {{ form_row(form._username) }}
-            {{ form_row(form._password) }}
-            <button type="submit" class="btn btn-primary right">Login <span class="fa fa-lock"></span></button>
-        {{ form_end(form) }}
+        {#{{ form_start(form) }}#}
+            {#{{ form_row(form._username) }}#}
+            {#{{ form_row(form._password) }}#}
+            {#<button type="submit" class="btn btn-primary right">Login <span class="fa fa-lock"></span></button>#}
+        {#{{ form_end(form) }}#}
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <form action="{{ path('login') }}" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input class="form-control" type="password" id="password" name="_password" />
+            </div>
+            <button class="btn btn-success pull-right" type="submit">login</button>
+        </form>
     </div>
 {% endblock %}

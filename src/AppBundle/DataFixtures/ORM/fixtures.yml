@@ -9,5 +9,10 @@ AppBundle\Entity\Post:
         category: '@category_*'
 
 AppBundle\Entity\User:
-    user_{1..10}:
-        email: example+<current()>@gmail.com
+#    user_{1..10}:
+#        email: example+<current()>@gmail.com
+#        password: <password()>
+    user:
+        username: admin
+        email: woolftreuser@ukr.net
+        password: $2y$12$cnAIQSCcvGhlxkN8alsOG.SdPtmqD6zTQAYXujE.qC0eRNYSGPCz6
