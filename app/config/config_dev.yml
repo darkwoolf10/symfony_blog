@@ -40,6 +40,13 @@ monolog:
         #    type: chromephp
         #    level: info
 
+#sonata_block:
+#    default_contexts: [cms]
+#    blocks:
+#        # enable the SonataAdminBundle block
+#        sonata.admin.block.admin_list:
+#            contexts: [admin]
+
 #swiftmailer:
 #    delivery_addresses: ['me@example.com']
 knp_paginator:

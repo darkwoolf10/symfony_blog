@@ -16,3 +16,4 @@ AppBundle\Entity\User:
         username: admin
         email: woolftreuser@ukr.net
         password: $2y$12$cnAIQSCcvGhlxkN8alsOG.SdPtmqD6zTQAYXujE.qC0eRNYSGPCz6
+        roles: ['ROLE_ADMIN']
