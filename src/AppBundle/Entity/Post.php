@@ -21,11 +21,15 @@ class Post
 
     /**
      * @Assert\NotBlank()
+     * @ORM\Column(type="string")
+     */
+    private $title;
+
+    /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     private $content;
-
-
 
     /**
      * @Assert\NotBlank()
@@ -48,6 +52,16 @@ class Post
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
     public function setContent($content)
