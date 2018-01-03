@@ -19,13 +19,15 @@ class BlogController extends Controller
     public function indexAction(Request $request)
     {
         $em    = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('AppBundle:Post')->findAll();
+        $dql   = "SELECT a FROM AppBundle:Post a ORDER BY a.id DESC";
+        $posts = $em->createQuery($dql);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $posts,
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 6)/*limit per page*/
+
         );
 
         return $this->render(
