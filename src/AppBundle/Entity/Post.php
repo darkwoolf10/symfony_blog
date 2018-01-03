@@ -20,16 +20,12 @@ class Post
     private $id;
 
     /**
-     * @Assert\NotBlank()php bin/console doctrine:schema:update --force
-     * @ORM\Column(type="string", length=100)
-     */
-    private $title;
-
-    /**
      * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     private $content;
+
+
 
     /**
      * @Assert\NotBlank()
@@ -39,41 +35,21 @@ class Post
     private $category;
 
     /**
-     *
-     * @return int
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="post")
+     * @ORM\JoinColumn(name="comment_id", referencedColumnName="id")
      */
+    private $comment;
+
+    public function __construct()
+    {
+        $this->comment = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param string $title
-     *
-     * @return Post
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     *
-     * @param string $content
-     *
-     * @return Post
-     */
     public function setContent($content)
     {
         $this->content = $content;
@@ -81,28 +57,28 @@ class Post
         return $this;
     }
 
-    /**
-     *
-     * @return string
-     */
     public function getContent()
     {
         return $this->content;
     }
 
-    /**
-     * @return mixed
-     */
     public function getCategory()
     {
         return $this->category;
     }
 
-    /**
-     * @return string
-     */
     public function setCategory($category)
     {
         $this->category = $category;
+    }
+
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 }
