@@ -1,0 +1,11 @@
+{% extends "@App/blog/show.html.twig" %}
+{% block comment %}
+    {{ form_start(form) }}
+    <div class="container">
+        <div class="form-group">
+            {{ form_row(form.text, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        {{ form_row(form.save, {'attr': {'class': 'btn btn-success pull-right'}}) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -32,11 +33,34 @@ class Post
     private $content;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
+    /**
+     * @ORM\OneToMany(
+     *      targetEntity="Comments",
+     *      mappedBy="post",
+     *      orphanRemoval=true,
+     *      cascade={"persist"}
+     * )
+     * @ORM\OrderBy({"publishedAt": "DESC"})
+     */
+    private $comments;
+
+    /**
      * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="post")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Assert\DateTime
+     */
+    private $publishedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="Comments", mappedBy="post")
@@ -46,7 +70,8 @@ class Post
 
     public function __construct()
     {
-        $this->comment = new ArrayCollection();
+        $this->publishedAt = new \DateTime();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId()
@@ -86,13 +111,31 @@ class Post
         $this->category = $category;
     }
 
-    public function getComment()
+
+    public function getComments()
     {
-        return $this->comment;
+        return $this->comments;
+    }
+    public function addComment(Comment $comment)
+    {
+        $comment->setPost($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+        }
+    }
+    public function removeComment(Comment $comment)
+    {
+        $comment->setPost(null);
+        $this->comments->removeElement($comment);
     }
 
-    public function setComment($comment)
+    public function getAuthor()
     {
-        $this->comment = $comment;
+        return $this->author;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
     }
 }

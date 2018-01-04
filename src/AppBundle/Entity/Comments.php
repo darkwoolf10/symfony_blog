@@ -22,72 +22,70 @@ class Comments
      * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
-    private $text;
+    private $content;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime
      */
-    private $createAt;
+    private $publishedAt;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(type="datetime")
-     */
-    private $updateAt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comment")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $post;
+
+    public function __construct()
+    {
+        $this->publishedAt = new \DateTime();
+    }
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getText()
+    public function getContent()
     {
-        return $this->text;
+        return $this->content;
     }
 
-    public function setText($text)
+    public function setContent($content)
     {
-        $this->text = $text;
+        $this->content = $content;
     }
 
     public function getAuthor()
     {
         return $this->author;
     }
-
-    public function setAuthor($author)
+    public function setAuthor(User $author)
     {
         $this->author = $author;
     }
 
-    public function getCreateAt()
+    public function getPublishedAt()
     {
-        return $this->createAt;
+        return $this->publishedAt;
+    }
+    public function setPublishedAt(\DateTime $publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
     }
 
-    public function setCreateAt($createAt)
+    public function getPost()
     {
-        $this->createAt = $createAt;
+        return $this->post;
     }
-
-    public function getUpdateAt()
+    public function setPost(Post $post)
     {
-        return $this->updateAt;
-    }
-
-    public function setUpdateAt($updateAt)
-    {
-        $this->updateAt = $updateAt;
+        $this->post = $post;
     }
 }

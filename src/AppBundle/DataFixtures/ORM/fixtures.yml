@@ -5,7 +5,7 @@ AppBundle\Entity\Category:
 AppBundle\Entity\Post:
     post_{1..15}:
         title: '<word()>'
-        content: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur culpa laborum nesciunt quidem? Adipisci dolor eum explicabo harum labore quae, quibusdam quod quos repudiandae sed similique, totam ut veniam?
+        content: '<text()>'
         category: '@category_*'
 
 AppBundle\Entity\User:
