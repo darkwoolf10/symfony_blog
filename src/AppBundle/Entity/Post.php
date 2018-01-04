@@ -62,12 +62,6 @@ class Post
      */
     private $publishedAt;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Comments", mappedBy="post")
-     * @ORM\JoinColumn(name="comment_id", referencedColumnName="id")
-     */
-    private $comment;
-
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
@@ -116,17 +110,17 @@ class Post
     {
         return $this->comments;
     }
-    public function addComment(Comment $comment)
+    public function addComment(Comments $comments)
     {
-        $comment->setPost($this);
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
+        $comments->setPost($this);
+        if (!$this->comments->contains($comments)) {
+            $this->comments->add($comments);
         }
     }
-    public function removeComment(Comment $comment)
+    public function removeComments(Comments $comments)
     {
-        $comment->setPost(null);
-        $this->comments->removeElement($comment);
+        $comments->setPost(null);
+        $this->comments->removeElement($comments);
     }
 
     public function getAuthor()
