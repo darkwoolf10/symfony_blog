@@ -1,15 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: woolf
- * Date: 05.01.18
- * Time: 2:11
- */
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Comment;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommentType
+class CommentType extends AbstractType
 {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('content')
+        ;
+    }
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Comment::class,
+        ]);
+    }
 }

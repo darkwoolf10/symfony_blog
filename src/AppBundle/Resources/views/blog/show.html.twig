@@ -15,7 +15,16 @@
         </div>
         <br>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {{ render(controller('AppBundle\\Controller\\CommentController::commentForm', {'id': post.id})) }}
+            {{ render(controller('AppBundle\\Controller\\CommentController::commentNew', {'id': post.id})) }}
+            <br><hr>
         {% endif %}
+        {% for comment in post.comment %}
+            <div class="alert alert-success">
+                {{ comment.content }}
+                {#{{ comment.author.username }}#}
+                <div class="pull-right">{{ comment.publishedAt.date | date }}</div>
+            </div>
+            {% dump(comment) %}
+        {% endfor %}
     </div>
 {% endblock %}

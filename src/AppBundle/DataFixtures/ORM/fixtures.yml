@@ -1,3 +1,10 @@
+AppBundle\Entity\User:
+    user:
+        username: admin
+        email: woolftreuser@ukr.net
+        password: $2y$12$cnAIQSCcvGhlxkN8alsOG.SdPtmqD6zTQAYXujE.qC0eRNYSGPCz6
+        roles: ['ROLE_ADMIN']
+
 AppBundle\Entity\Category:
     category_{1..4}:
         name: '<word()>'
@@ -6,14 +13,11 @@ AppBundle\Entity\Post:
     post_{1..15}:
         title: '<word()>'
         content: '<text()>'
+        author: '@user'
         category: '@category_*'
 
-AppBundle\Entity\User:
-#    user_{1..10}:
-#        email: example+<current()>@gmail.com
-#        password: <password()>
-    user:
-        username: admin
-        email: woolftreuser@ukr.net
-        password: $2y$12$cnAIQSCcvGhlxkN8alsOG.SdPtmqD6zTQAYXujE.qC0eRNYSGPCz6
-        roles: ['ROLE_ADMIN']
+AppBundle\Entity\Comment:
+    comment_{1..40}:
+        post: '@post_*'
+        content: '<word()>'
+        author: '@user'

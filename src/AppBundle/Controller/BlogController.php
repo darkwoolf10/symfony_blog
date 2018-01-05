@@ -29,7 +29,7 @@ class BlogController extends Controller
             $request->query->getInt('limit', 6)/*limit per page*/
 
         );
-
+        dump($pagination);
         return $this->render(
             '@App/blog/index.html.twig', [
             'pagination' => $pagination,
@@ -72,7 +72,6 @@ class BlogController extends Controller
         if (!$post) {
             return $this->redirectToRoute('homepage');
         }
-
         return $this->render(
             '@App/blog/show.html.twig', [
             'post' => $post,

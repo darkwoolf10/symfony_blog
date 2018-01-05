@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="comments")
  */
-class Comments
+class Comment
 {
     /**
      * @ORM\Column(type="integer")
@@ -37,7 +37,7 @@ class Comments
     private $publishedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comment")
      * @ORM\JoinColumn(nullable=false)
      */
     private $post;

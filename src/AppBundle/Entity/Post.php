@@ -40,14 +40,14 @@ class Post
 
     /**
      * @ORM\OneToMany(
-     *      targetEntity="Comments",
+     *      targetEntity="Comment",
      *      mappedBy="post",
      *      orphanRemoval=true,
      *      cascade={"persist"}
      * )
      * @ORM\OrderBy({"publishedAt": "DESC"})
      */
-    private $comments;
+    private $comment;
 
     /**
      * @Assert\NotBlank()
@@ -65,7 +65,7 @@ class Post
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
-        $this->comments = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     public function getId()
@@ -105,22 +105,21 @@ class Post
         $this->category = $category;
     }
 
-
-    public function getComments()
+    public function getComment()
     {
-        return $this->comments;
+        return $this->comment;
     }
-    public function addComment(Comments $comments)
+    public function addComment(Comment $comment)
     {
-        $comments->setPost($this);
-        if (!$this->comments->contains($comments)) {
-            $this->comments->add($comments);
+        $comment->setPost($this);
+        if (!$this->comment->contains($comment)) {
+            $this->comment->add($comment);
         }
     }
-    public function removeComments(Comments $comments)
+    public function removeComment(Comments $comment)
     {
-        $comments->setPost(null);
-        $this->comments->removeElement($comments);
+        $comment->setPost(null);
+        $this->comment->removeElement($comment);
     }
 
     public function getAuthor()

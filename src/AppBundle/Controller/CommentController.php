@@ -2,36 +2,38 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Post;
+use AppBundle\Form\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Entity\Comments;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use AppBundle\Entity\Comment;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class CommentController extends Controller
 {
     /**
-     * @Security("has_role('ROLE_USER')")
+     * @Route("/comment/{id}", name="comment_new")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
-    public function addAction(Request $request)
+    public function commentNew(Request $request, Post $post)
     {
-        $comment = new Comments();
-
-        $form = $this->createFormBuilder($comment)
-            ->add('text', TextAreaType::class)
-            ->add('save', SubmitType::class, array('label' => 'Create Comment'))
-            ->getForm();
-
+        $comment = new Comment();
+        $comment->setAuthor($this->getUser());
+        $post->addComment($comment);
+        $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
+
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('@App/blog/comment.html.twig', [
+            'post' => $post,
             'form' => $form->createView(),
         ]);
     }
