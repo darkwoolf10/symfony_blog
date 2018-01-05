@@ -1,11 +1,8 @@
-{% extends "@App/blog/show.html.twig" %}
-{% block comment %}
-    {{ form_start(form) }}
-    <div class="container">
-        <div class="form-group">
-            {{ form_row(form.text, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        {{ form_row(form.save, {'attr': {'class': 'btn btn-success pull-right'}}) }}
+{{ form_start(form, {method: 'POST', action: path('comment_new', {'postSlug': post.id})}) }}
+    {{ form_widget(form.content, {attr: {rows: 10}}) }}
+    <div class="form-group">
+        <button class="btn btn-primary pull-right" type="submit">
+            <i class="fa fa-paper-plane" aria-hidden="true"></i> {{ 'action.publish_comment'|trans }}
+        </button>
     </div>
-    {{ form_end(form) }}
-{% endblock %}
+{{ form_end(form) }}

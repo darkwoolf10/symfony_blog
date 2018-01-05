@@ -14,5 +14,7 @@
             </div>
         </div>
     </div>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {{ render(controller('AppBundle\\Controller\\CommentController::commentForm', {'id': post.id})) }}
+    {% endif %}
 {% endblock %}
-
