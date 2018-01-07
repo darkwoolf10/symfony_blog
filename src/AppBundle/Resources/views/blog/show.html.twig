@@ -18,11 +18,17 @@
             {{ render(controller('AppBundle\\Controller\\CommentController::commentNew', {'id': post.id})) }}
             <br><hr>
         {% endif %}
+
         {% for comment in post.comment %}
-            <div class="alert alert-success">
-                {{ comment.content }}
-                {#{{ comment.author.username }}#}
-                <div class="pull-right">{{ comment.publishedAt.date | date }}</div>
+            <div class="card">
+                <div class="card-header">
+                    <strong> {{ comment.author.username }}</strong> <span class="text-muted pull-right">{{ comment.publishedAt.date | date }}</span>
+                </div>
+                <div class="card-block">
+                    <div class="card-text">
+                        <h4>{{ comment.content }}</h4>
+                    </div>
+                </div>
             </div>
             {% dump(comment) %}
         {% endfor %}

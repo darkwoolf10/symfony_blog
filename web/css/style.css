@@ -52,3 +52,11 @@ body {
 .category_label {
   background: antiquewhite
 }
+
+.card {
+  margin-bottom: 0.5%;
+}
+
+.card-text{
+  padding: 0.5%;
+}

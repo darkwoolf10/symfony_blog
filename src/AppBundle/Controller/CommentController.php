@@ -19,17 +19,21 @@ class CommentController extends Controller
     public function commentNew(Request $request, Post $post)
     {
         $comment = new Comment();
-        $comment->setAuthor($this->getUser());
-        $post->addComment($comment);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // this code is here to not show unnecessary (empty) comments
+            $comment->setAuthor($this->getUser());
+            $post->addComment($comment);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('show_post', [
+                'id' => $post->getId()
+            ]);
         }
 
         return $this->render('@App/blog/comment.html.twig', [

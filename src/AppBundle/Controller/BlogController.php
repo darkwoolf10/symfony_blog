@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Entity\Post;
 
 class BlogController extends Controller
@@ -121,22 +120,6 @@ class BlogController extends Controller
             'form' => $form->createView()
         ]);
 
-    }
-
-    /**
-     * @Route("/category/{categoryId}", name="category")
-     */
-    public function categoryAction($categoryId, EntityManagerInterface $em)
-    {
-        $category = $em->getRepository('AppBundle:Category')
-            ->find($categoryId);
-        $posts = $category->getPost();
-
-        return $this->render(
-            '@App/blog/category.html.twig', [
-            'category' => $category,
-            'posts' => $posts,
-        ]);
     }
 
 }

@@ -17,7 +17,7 @@ AppBundle\Entity\Post:
         category: '@category_*'
 
 AppBundle\Entity\Comment:
-    comment_{1..40}:
+    comment_{1..5}:
         post: '@post_*'
         content: '<word()>'
         author: '@user'
