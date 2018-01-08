@@ -4,11 +4,12 @@
         <div class="list-group-item active"><h2>{{ post.title }}</h2></div>
             <div class="list-group-item">
                 <h4>{{ post.content }}</h4>
+                <p>{{ render(controller('AppBundle\\Controller\\LikeController::likeAction', {'id': post.id})) }}</p>
                 <code class="category_label">{{ post.category.name }}</code>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <div class="right">
-                        <a href="{{ path('delete_post', {'id': post.id}) }}"><button type="button" class="btn btn-danger pointer"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> Delete</button></a>
-                        <a href="{{ path('edit_post', {'id': post.id}) }}" class="btn btn-primary pointer"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Edit</a>
+                    <div class="pull-right">
+                        <a href="{{ path('delete_post', {'id': post.id}) }}"><button type="button" class="btn btn-danger pointer"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></a>
+                        <a href="{{ path('edit_post', {'id': post.id}) }}" class="btn btn-primary pointer"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                     </div>
                 {% endif %}
             </div>
@@ -16,9 +17,11 @@
         <br>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             {{ render(controller('AppBundle\\Controller\\CommentController::commentNew', {'id': post.id})) }}
-            <br><hr>
+            <br>
         {% endif %}
-
+        {% if post.comment|length > 0 %}
+            <hr>
+        {% endif %}
         {% for comment in post.comment %}
             <div class="card">
                 <div class="card-header">
@@ -30,7 +33,6 @@
                     </div>
                 </div>
             </div>
-            {% dump(comment) %}
         {% endfor %}
     </div>
 {% endblock %}

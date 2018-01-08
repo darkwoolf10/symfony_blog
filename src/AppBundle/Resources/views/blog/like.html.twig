@@ -1,0 +1,6 @@
+{{ form_start(form, {method: 'POST', action: path('like_up', {'id': post.id})}) }}
+    <button class="btn btn-dark" type="submit">
+        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+        {{ like_count }}
+    </button>
+{{ form_end(form) }}

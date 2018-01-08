@@ -44,7 +44,7 @@ edit_post:
 
 category:
     path: /category/{categoryId}
-    defaults: {_controller: AppBundle:Blog:category}
+    defaults: {_controller: AppBundle:Category:category}
 
 login:
     path: /login

@@ -50,6 +50,12 @@ class Post
     private $comment;
 
     /**
+     * @ORM\OneToMany(targetEntity="Like", mappedBy="post")
+     * @ORM\JoinColumn(name="like_id", referencedColumnName="id")
+     */
+    private $like;
+
+    /**
      * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="post")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
@@ -109,6 +115,7 @@ class Post
     {
         return $this->comment;
     }
+
     public function addComment(Comment $comment)
     {
         $comment->setPost($this);
@@ -116,6 +123,7 @@ class Post
             $this->comment->add($comment);
         }
     }
+
     public function removeComment(Comments $comment)
     {
         $comment->setPost(null);
@@ -130,5 +138,15 @@ class Post
     public function setAuthor($author)
     {
         $this->author = $author;
+    }
+
+    public function getLike()
+    {
+        return $this->like;
+    }
+
+    public function setLike($like)
+    {
+        $this->like = $like;
     }
 }

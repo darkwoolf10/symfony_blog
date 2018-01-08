@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\PostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Post;
@@ -28,7 +28,6 @@ class BlogController extends Controller
             $request->query->getInt('limit', 6)/*limit per page*/
 
         );
-        dump($pagination);
         return $this->render(
             '@App/blog/index.html.twig', [
             'pagination' => $pagination,
@@ -114,7 +113,9 @@ class BlogController extends Controller
 
             $this->addFlash('success', 'Post updated!');
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('show_post', [
+                'id' => $post->getId()
+            ]);
         }
         return $this->render('@App/blog/edit.html.twig', [
             'form' => $form->createView()

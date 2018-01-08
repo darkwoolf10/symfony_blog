@@ -66,6 +66,7 @@ class Comment
     {
         return $this->author;
     }
+
     public function setAuthor(User $author)
     {
         $this->author = $author;
@@ -75,6 +76,7 @@ class Comment
     {
         return $this->publishedAt;
     }
+
     public function setPublishedAt(\DateTime $publishedAt)
     {
         $this->publishedAt = $publishedAt;
@@ -84,6 +86,7 @@ class Comment
     {
         return $this->post;
     }
+
     public function setPost(Post $post)
     {
         $this->post = $post;
