@@ -1,0 +1,31 @@
+{% extends "layout.html.twig" %}
+{% block body%}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Category</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date</th>
+            <th scope="col">Control</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for post in pagination %}
+                <tr>
+                  <th scope="row">{{ post.id }}</th>
+                  <td>{{ post.title }}</td>
+                  <td>{{ post.category.name }}</td>
+                  <td>{{ post.author.username }}</td>
+                  <td>{{ post.publishedAt.date | date }}</td>
+                  <td>
+                    <a href="{{ path('delete_post', {'id': post.id}) }}"><button type="button" class="btn btn-danger pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
+                    <a href="{{ path('edit_post', {'id': post.id}) }}" class="btn btn-primary pointer"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(pagination) }}
+{% endblock %}
