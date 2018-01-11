@@ -26,6 +26,10 @@ homepage:
     path: /blog
     defaults: { _controller: AppBundle:Blog:index }
 
+admin:
+    path: /admin
+    defaults: { _controller: AppBundle:Admin:admin }
+
 create_post:
     path: /blog/create
     defaults: { _controller: AppBundle:Blog:create }

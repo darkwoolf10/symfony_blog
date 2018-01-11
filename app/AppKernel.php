@@ -21,6 +21,7 @@ class AppKernel extends Kernel
 //            new Sonata\BlockBundle\SonataBlockBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
 //            new Sonata\AdminBundlsonataAdminBundle(),
             new AppBundle\AppBundle(),
         ];

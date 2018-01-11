@@ -60,10 +60,17 @@ class BlogController extends Controller
 
     /**
      * @Route("/blog/{id}", name="show_post")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
     public function showAction($id)
     {
         $repository = $this->getDoctrine()->getRepository(Post::class);
+
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addRouteItem("Post", "show_post", [
+            'id' => $id,
+        ]);
 
         $post = $repository->find($id);
 
@@ -94,7 +101,7 @@ class BlogController extends Controller
         $em->remove($post);
         $em->flush();
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('admin');
     }
 
     /**
