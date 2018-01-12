@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="like")
+ * @ORM\Table(name="likes")
  */
-class Like
+class Likes
 {
     /**
      * @ORM\Column(type="integer")
@@ -16,11 +16,6 @@ class Like
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $counterLikes;
 
     /**
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="like")
@@ -42,21 +37,6 @@ class Like
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getCounterLikes()
-    {
-        return $this->counterLikes;
-    }
-
-    public function setCounterLikes($counterLikes)
-    {
-        $this->counterLikes = $counterLikes;
-    }
-
-    public function upCounterLikes()
-    {
-        return $this->counterLikes = $this->counterLikes + 1;
     }
 
     public function getUser()

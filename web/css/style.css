@@ -58,3 +58,7 @@ body {
 .card-text{
   padding: 0.5%;
 }
+
+.fa-heart {
+  color: #fff;
+}

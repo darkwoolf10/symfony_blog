@@ -4,6 +4,7 @@
 {% block body %}
     <h3>Category: <code>{{ category.name }}</code></h3>
     <hr>
+    {{ wo_render_breadcrumbs() }}
     <div>
         {% for post in posts %}
             <div class="list-group">

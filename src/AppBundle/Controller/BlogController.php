@@ -35,6 +35,14 @@ class BlogController extends Controller
     }
 
     /**
+     * @Route("about", name="about")
+     */
+    public function aboutAction()
+    {
+        return $this->render("@App/info/about.html.twig");
+    }
+
+    /**
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/blog/create")
      */
@@ -68,7 +76,7 @@ class BlogController extends Controller
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addRouteItem("Post", "show_post", [
+        $breadcrumbs->addRouteItem("Post №$id", "show_post", [
             'id' => $id,
         ]);
 
@@ -101,7 +109,7 @@ class BlogController extends Controller
         $em->remove($post);
         $em->flush();
 
-        return $this->redirectToRoute('admin');
+        return $this->redirectToRoute('homepage');
     }
 
     /**

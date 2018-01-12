@@ -40,17 +40,26 @@ monolog:
         #    type: chromephp
         #    level: info
 
-#sonata_block:
-#    default_contexts: [cms]
-#    blocks:
-#        # enable the SonataAdminBundle block
-#        sonata.admin.block.admin_list:
-#            contexts: [admin]
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
 
 #swiftmailer:
 #    delivery_addresses: ['me@example.com']
 
 white_october_breadcrumbs: ~
+
+knp_menu:
+    # use "twig: false" to disable the Twig extension and the TwigRenderer
+    twig:
+        template: KnpMenuBundle::menu.html.twig
+    #  if true, enables the helper for PHP templates
+    templating: false
+    # the renderer to use, list is also available by default
+    default_renderer: twig
 
 knp_paginator:
     template:

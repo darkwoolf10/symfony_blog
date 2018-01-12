@@ -50,10 +50,10 @@ class Post
     private $comment;
 
     /**
-     * @ORM\OneToMany(targetEntity="Like", mappedBy="post")
-     * @ORM\JoinColumn(name="like_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="Likes", mappedBy="post")
+     * @ORM\JoinColumn(name="likes_id", referencedColumnName="id")
      */
-    private $like;
+    private $likes;
 
     /**
      * @Assert\NotBlank()
@@ -140,13 +140,23 @@ class Post
         $this->author = $author;
     }
 
-    public function getLike()
+    public function getLikes()
     {
-        return $this->like;
+        return $this->likes;
     }
 
-    public function setLike($like)
+    public function setLike($likes)
     {
-        $this->like = $like;
+        $this->likes = $likes;
+    }
+
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
     }
 }
