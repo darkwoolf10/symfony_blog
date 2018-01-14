@@ -37,7 +37,10 @@ body {
   height: 100%;
 }
 
-
+/* for delete button on show_page */
+form {
+  display: inline;
+}
 
 .pointer {
   cursor: pointer;

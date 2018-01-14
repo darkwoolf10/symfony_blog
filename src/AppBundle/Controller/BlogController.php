@@ -55,6 +55,7 @@ class BlogController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $post->setAuthor($this->getUser());
             $em->persist($post);
             $em->flush();
 
@@ -93,21 +94,23 @@ class BlogController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
-     * @Route("/delete_post/{id}", name="delete_post")
+     * @Route("/delete_post/id", name="delete_post")
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository(Post::class)->find($id);
+        $submittedToken = $request->request->get('token');
 
         if (!$post) {
             throw $this->createNotFoundException(
                 'No post found for id '.$id
             );
         }
-
-        $em->remove($post);
-        $em->flush();
+        if ($this->isCsrfTokenValid('delete-item', $submittedToken)) {
+            $em->remove($post);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('homepage');
     }

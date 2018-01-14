@@ -10,5 +10,4 @@ Encore
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
 ;
-
 module.exports = Encore.getWebpackConfig();
