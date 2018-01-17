@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-    class LikeController extends Controller
+    class Likesontroller extends Controller
     {
 
         /**
@@ -21,10 +21,16 @@ use Symfony\Component\Routing\Annotation\Route;
             $em = $this->getDoctrine()->getManager();
             $like = $em->getRepository('AppBundle:Likes')->findOne(['post' => $post, 'user' => $user]);
 
+            $form = $this->createForm(LikesType::class, $post);
+            $form->handleRequest($request);
+
             if (!$like) {
                 throw $this->createNotFoundException(
                     'Problems guy'
                 );
+            }
+            if ($form->isSubmitted()){
+
             }
 
             $em->persist($like);

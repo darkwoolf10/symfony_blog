@@ -18,20 +18,25 @@ class Likes
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="like")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="likes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $post;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User",inversedBy="likes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createAt;
+
     public function __construct()
     {
-        $this->counterLikes = 0;
+        $this->createAt = new \DateTime();
     }
 
     public function getId()
@@ -57,5 +62,15 @@ class Likes
     public function setPost(Post $post)
     {
         $this->post = $post;
+    }
+
+    public function getCreateAt()
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt($createAt)
+    {
+        $this->createAt = $createAt;
     }
 }

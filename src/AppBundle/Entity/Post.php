@@ -34,7 +34,7 @@ class Post
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(nullable=true)
      */
     private $author;
 
@@ -72,6 +72,7 @@ class Post
     {
         $this->publishedAt = new \DateTime();
         $this->comment = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId()

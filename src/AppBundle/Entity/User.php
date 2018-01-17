@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -43,6 +42,11 @@ class User implements UserInterface
     * @ORM\Column(type="string", length=64)
     */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Likes", mappedBy="user")
+     */
+    protected $likes;
 
     /**
      * @ORM\Column(type="json_array")
