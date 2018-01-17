@@ -1,7 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: woolf
- * Date: 16.01.18
- * Time: 1:48
- */
+
+namespace AppBundle\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+class LikesType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('likes', SubmitType::class, ['label' => ''])
+        ;
+    }
+}

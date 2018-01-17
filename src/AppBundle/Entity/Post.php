@@ -51,7 +51,6 @@ class Post
 
     /**
      * @ORM\OneToMany(targetEntity="Likes", mappedBy="post")
-     * @ORM\JoinColumn(name="likes_id", referencedColumnName="id")
      */
     private $likes;
 

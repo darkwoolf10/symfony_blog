@@ -2,10 +2,8 @@
 {% block title %}{{ 'My views' }}{% endblock %}
 
 {% block body %}
-    <div class="count">
-        <h3>Number of posts: {{ pagination.getTotalItemCount }}</h3>
-        <hr>
-    </div>
+    <h3>Number of posts: {{ pagination.getTotalItemCount }}</h3>
+    <hr>
     {{ knp_pagination_render(pagination) }}
     {% for post in pagination %}
         <div class="list-group">
@@ -16,7 +14,7 @@
                 <p>{{ post.content }}</p>
                 <p>
                     <span><code class="category_label">{{ post.category.name }}</code></span>
-                    <a class="btn btn-info pull-right" href="{{ path('show_post', {'id': post.id}) }}"><i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i></a>
+                    <a class="btn btn-info pull-right btn-action" href="{{ path('show_post', {'id': post.id}) }}"><i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i></a>
                 </p>
             </div>
         </div>

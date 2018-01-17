@@ -42,8 +42,30 @@ form {
   display: inline;
 }
 
+hr {
+  margin-top: 2%;
+}
+
 .pointer {
   cursor: pointer;
+}
+
+.btn-action {
+  -webkit-transition: transform 0.1s ease-in-out;
+  -moz-transition:transform 1s ease-in-out;
+  -ms-transition:transform 0.1s ease-in-out;
+}
+
+.btn-action:hover {
+  moz-transform: rotate(3deg); /* Для Firefox */
+  -ms-transform: rotate(8deg); /* Для IE */
+  -webkit-transform: rotate(8deg); /* Для Safari, Chrome, iOS */
+  -o-transform: rotate(8deg); /* Для Opera */
+  transform: rotate(360deg);
+
+  -webkit-transition: transform 0.1s ease-in-out;
+  -moz-transition:transform 1s ease-in-out;
+  -ms-transition:transform 0.1s ease-in-out;
 }
 
 .login {
