@@ -49,8 +49,8 @@ edit_post:
     path: /edit_post/{id}
     defaults: {_controller: AppBundle:Blog:edit}
 
-like:
-    path: /ajax_request
+like_post:
+    path: /blog/{id}/like
     defaults: { _controller: AppBundle:Likes:like }
 
 category:

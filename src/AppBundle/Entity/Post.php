@@ -55,6 +55,13 @@ class Post
     private $likes;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="likes_counter", type="integer")
+     */
+    private $likesCounter;
+
+    /**
      * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="post")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
@@ -72,6 +79,7 @@ class Post
         $this->publishedAt = new \DateTime();
         $this->comment = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->likesCounter = 0;
     }
 
     public function getId()
@@ -140,6 +148,10 @@ class Post
         $this->author = $author;
     }
 
+    public function upLikes(){
+
+    }
+
     public function getLikes()
     {
         return $this->likes;
@@ -148,6 +160,26 @@ class Post
     public function setLike($likes)
     {
         $this->likes = $likes;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLikesCounter()
+    {
+        return $this->likesCounter;
+    }
+
+    /**
+     * @param int $likesCounter
+     */
+    public function setLikesCounter($likesCounter)
+    {
+        $this->likesCounter = $likesCounter;
+    }
+
+    public function increaseLikesCounter() {
+        $this->likesCounter++;
     }
 
     public function getPublishedAt()
