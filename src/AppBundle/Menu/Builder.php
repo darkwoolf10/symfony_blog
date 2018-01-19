@@ -14,12 +14,25 @@ class Builder implements ContainerAwareInterface
     {
         $menu = $factory->createItem('root');
 
-        $menu->addChild('Home', array('route' => 'homepage'));
-
-        // create another menu item
-        $menu->addChild('About Me', ['route' => 'about']);
+        $menu
+            ->addChild('Home', ['route' => 'homepage'])
+            ->setAttributes([
+                'class' => 'list-group-item list-group-item-action text-center'
+            ])
+        ;
+        $menu
+            ->addChild('About Me', ['route' => 'about'])
+            ->setAttributes([
+                'class' => 'list-group-item list-group-item-action text-center'
+            ])
+        ;
+        $menu
+            ->addChild('Account')
+            ->setAttributes([
+                'class' => 'list-group-item list-group-item-action text-center'
+            ])
+        ;
         // you can also add sub level's to your menu's as follows
-        $menu['About Me']->addChild('Edit profile', ['route' => 'edit_profile']);
 
         return $menu;
     }

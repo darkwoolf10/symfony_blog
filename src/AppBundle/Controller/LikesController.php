@@ -3,8 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Likes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LikesController extends Controller
@@ -37,7 +39,7 @@ class LikesController extends Controller
             $em->persist($userPostLike);
             $em->flush();
 
-            return new JsonResponse(array('result' => 'success'));
+            return new JsonResponse(['result' => 'success']);
         }
 
         return new JsonResponse(['result' => 'failed']);

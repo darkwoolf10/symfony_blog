@@ -53,6 +53,11 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    public function __toString()
+    {
+        return $this->username;
+    }
+
     public function getEmail()
     {
         return $this->email;
