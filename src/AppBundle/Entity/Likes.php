@@ -3,55 +3,36 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
- * @ORM\Entity
+ * @ORM\Entity()
  * @ORM\Table(name="likes")
  */
 class Likes
 {
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="likes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="likes", cascade={"persist"})
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $post;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User",inversedBy="likes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="likes", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $user;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createAt;
-
-    public function __construct()
-    {
-        $this->createAt = new \DateTime();
-    }
 
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function setUser($user)
-    {
-        $this->user = $user;
     }
 
     public function getPost()
@@ -61,16 +42,17 @@ class Likes
 
     public function setPost(Post $post)
     {
-        $this->post = $post;
+        return $this->post = $post;
     }
 
-    public function getCreateAt()
+    public function getUser()
     {
-        return $this->createAt;
+        return $this->user;
     }
 
-    public function setCreateAt($createAt)
+    public function setUser(User $user)
     {
-        $this->createAt = $createAt;
+        return $this->user = $user;
     }
 }
+

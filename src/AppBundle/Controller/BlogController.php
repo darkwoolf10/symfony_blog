@@ -69,7 +69,6 @@ class BlogController extends Controller
 
     /**
      * @Route("/blog/{id}", name="show_post")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
     public function showAction($id)
     {
@@ -82,10 +81,6 @@ class BlogController extends Controller
         ]);
 
         $post = $repository->find($id);
-
-        if (!$post) {
-            return $this->redirectToRoute('homepage');
-        }
         return $this->render(
             '@App/blog/show.html.twig', [
             'post' => $post,

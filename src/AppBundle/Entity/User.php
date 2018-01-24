@@ -46,7 +46,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="Likes", mappedBy="user")
      */
-    protected $likes;
+    private $likes;
 
     /**
      * @ORM\Column(type="json_array")
@@ -112,6 +112,21 @@ class User implements UserInterface
     public function setRoles(array $roles)
     {
         $this->roles = $roles;
+    }
+
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    public function addLikes($likes)
+    {
+        return $this->likes = $likes;
+    }
+
+    public function removeLikes(Likes $likes)
+    {
+        return $this->likes->removeElement($likes);
     }
 
     public function eraseCredentials()

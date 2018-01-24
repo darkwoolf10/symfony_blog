@@ -1,47 +1,61 @@
 <?php
-
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Post;
 use AppBundle\Entity\Likes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LikesController extends Controller
 {
+
     /**
-     * @Route("/blog/{id}/like", name="like_post")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Route("{postId}/like/add", name="like_add")
      */
-    public function likeAction($id)
+    public function addAction($postId)
     {
         $em = $this->getDoctrine()->getManager();
-        $post = $em->find(Post::class, $id);
-        $user = $this->getUser();
+        $post = $em->getRepository('AppBundle:Post')->find($postId);
 
-        // check if post is found
-        if ($post === null) {
-            throw new NotFoundHttpException('Post not found');
+        if (!$post) {
+            throw $this->createNotFoundException();
         }
 
-        // check if user did not like this post yet
-        $userPostLike = $em->getRepository(Likes::class)->findOneBy(['user' => $user, 'post' => $post]);
+        $like = new Likes();
+        $like->setUser($this->getUser());
+        $like->setPost($post);
 
-        if ($userPostLike === null) {
-            $userPostLike = new Likes();
-            $userPostLike->setUser($user);
-            $userPostLike->setPost($post);
+        $em->persist($like);
+        $em->flush();
 
-            $post->increaseLikesCounter();
+        return $this->redirectToRoute('show_post', [
+            'id' => $postId,
+        ]);
+    }
 
-            $em->persist($userPostLike);
-            $em->flush();
+    /**
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Route("{postId}/like/delete", name="like_delete")
+     */
+    public function deleteAction($postId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('AppBundle:Post')->find($postId);
 
-            return new JsonResponse(['result' => 'success']);
+        if (!$post) {
+            throw $this->createNotFoundException();
         }
 
-        return new JsonResponse(['result' => 'failed']);
+        $likes = $em->getRepository('AppBundle:Likes')->findBy(['post' => $post->getId(), 'user' => $this->getUser()]);
+
+        foreach ($likes as $like) {
+            $em->remove($like);
+        }
+
+        $em->flush();
+        return $this->redirectToRoute('show_post', [
+            'id' => $postId,
+        ]);
     }
 }

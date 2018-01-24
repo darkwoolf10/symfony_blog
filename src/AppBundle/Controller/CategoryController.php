@@ -28,6 +28,11 @@ class CategoryController extends Controller
     {
         $category = $em->getRepository('AppBundle:Category')
             ->find($categoryId);
+
+        if (!$category) {
+            return $this->render('@App/blog/notFound.html.twig');
+        }
+
         $posts = $category->getPost();
 
         return $this->render(
