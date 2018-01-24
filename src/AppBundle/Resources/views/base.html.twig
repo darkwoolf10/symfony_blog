@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('vendor/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block header %}
+            <header>
+                <nav  class="navbar navbar-expand navbar-dark bg-dark">
+                    <a class="navbar-brand" href="{{ path('homepage') }}" style="float: right">Bloger</a>
+
+                    <div class="collapse navbar-collapse" id="navbarsExample02">
+                        <ul class="navbar-nav mr-auto">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ path('create_post') }}" >Create post <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ path('sonata_admin_dashboard') }}" >Admin page <span class="sr-only">(current)</span></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a href="{{ path('logout') }}">
+                                <button type="button" class="btn btn-primary login">Logout</button>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('login') }}">
+                                <button type="button" class="btn btn-primary login">Sign in</button>
+                            </a>
+                            <a href="{{ path('user_registration') }}">
+                                <button type="button" class="btn btn-primary login">Sign up</button>
+                            </a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </header>
+            <br>
+        {% endblock %}
+        {% block wrapper %}
+        <div class="container-fluid">
+            <div class="row">
+                {# sidebar with categories #}
+                <nav class="col-sm-3 col-md-2 sidebar">
+                    <div class="list-group">
+                        {{ render(controller(
+                            'AppBundle:Category:categoryMenu'
+                        )) }}
+                    </div>
+                </nav>
+
+                <div class="col-md-8">
+                    {% block body %}{% endblock %}
+                </div>
+                <div class="col-sm-6 ml-sm-auto col-md-2">
+                    {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+            <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
+            <script src="{{ asset('js/app.js') }}"></script>
+        {% endblock %}
+
+        {% block footer %}
+            <footer>
+
+            </footer>
+        {% endblock %}
+    </body>
+</html>

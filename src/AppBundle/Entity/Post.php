@@ -50,7 +50,12 @@ class Post
     private $comment;
 
     /**
-     * @ORM\OneToMany(targetEntity="Likes", mappedBy="post")
+     * @ORM\OneToMany(
+     *     targetEntity="Likes",
+     *     mappedBy="post",
+     *     orphanRemoval = true,
+     *     cascade={"persist"}
+     * )
      */
     private $likes;
 

@@ -67,6 +67,13 @@ hr {
   -moz-transition:transform 1s ease-in-out;
   -ms-transition:transform 0.1s ease-in-out;
 }
+/* Body */
+
+.create-body {
+  max-width: 100%;
+}
+
+/* Other */
 
 .login {
   margin-right: 7px;

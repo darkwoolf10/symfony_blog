@@ -1,19 +1,39 @@
-{% extends "base.html.twig"  %}
-{% block body %}
-
-    {{ form_start(form) }}
-        <div class="container">
-            <div class="form-group">
-                {{ form_row(form.title, {'attr': {'class': 'form-control'}}) }}
+{% extends "@App/base.html.twig"  %}
+{% block wrapper %}
+        <div class="row create-body">
+            <div class="col-md-6">
+                <div class="container">
+                    <div class="list-group-item active"><h2></h2></div>
+                    <div class="list-group-item">
+                        <h4></h4>
+                        <button class="btn btn-dark like">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 0
+                        </button>
+                        <div class="pull-right">
+                            <form action="" method="post">
+                                <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}" />
+                                <button type="submit" class="btn btn-danger pointer btn-action"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>
+                            </form>
+                            <a href="#" class="btn btn-primary pointer btn-action"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                {{ form_row(form.content, {'attr': {'class': 'form-control'}}) }}
+            <div class="col-md-6">
+                {{ form_start(form) }}
+                    <div class="container">
+                        <div class="form-group">
+                            {{ form_row(form.title, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.content, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.category, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        {{ form_row(form.save, {'attr': {'class': 'btn btn-success pull-right'}}) }}
+                    </div>
+                {{ form_end(form) }}
             </div>
-            <div class="form-group">
-                {{ form_row(form.category, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            {{ form_row(form.save, {'attr': {'class': 'btn btn-success pull-right'}}) }}
         </div>
-    {{ form_end(form) }}
-
 {% endblock %}

@@ -31,7 +31,7 @@ class PostAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('title')
             ->add('category.name')
-            ->add('draft')
+            ->add('draft', "boolean")
         ;
     }
 
@@ -43,6 +43,7 @@ class PostAdmin extends AbstractAdmin
                 'class'    => 'AppBundle\Entity\Category',
                 'choice_label' => 'name', // In Symfony2: 'property' => 'name'
             ])
+            ->add('content')
         ;
     }
 
