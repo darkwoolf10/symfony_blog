@@ -3,6 +3,6 @@
 /app/config/parameters.yml
 /vendor
 /node_modules
-/web/bundle
+/web/bundles
 /web/vendor
 /bower_components
