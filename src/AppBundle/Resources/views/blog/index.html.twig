@@ -11,7 +11,7 @@
                 <h2>{{ post.title }}</h2>
             </div>
             <div class="list-group-item">
-                <p>{{ post.content }}</p>
+                <p>{{ post.content|raw }}</p>
                 <p>
                     <span><code class="category_label">{{ post.category.name }}</code></span>
                     <a class="btn btn-info pull-right btn-action" href="{{ path('show_post', {'id': post.id}) }}"><i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i></a>

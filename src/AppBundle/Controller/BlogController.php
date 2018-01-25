@@ -18,7 +18,7 @@ class BlogController extends Controller
     public function indexAction(Request $request)
     {
         $em    = $this->getDoctrine()->getManager();
-        $dql   = "SELECT a FROM AppBundle:Post a ORDER BY a.id DESC";
+        $dql   = "SELECT post FROM AppBundle:Post post ORDER BY post.id DESC";
         $posts = $em->createQuery($dql);
 
         $paginator  = $this->get('knp_paginator');
@@ -81,6 +81,10 @@ class BlogController extends Controller
         ]);
 
         $post = $repository->find($id);
+
+        if(!$post) {
+           return $this->render('@App/blog/notFound.html.twig');
+        }
         return $this->render(
             '@App/blog/show.html.twig', [
             'post' => $post,

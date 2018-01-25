@@ -3,7 +3,7 @@
         <div class="row create-body" id="app-6">
             <div class="col-md-6">
                 <div class="container">
-                    <div class="list-group-item active "><h2>${ message }</h2></div>
+                    <div class="list-group-item active "><h2></h2></div>
                     <div class="list-group-item">
                         <h4></h4>
                         <button class="btn btn-dark like">
@@ -22,8 +22,8 @@
             <div class="col-md-6">
                 {{ form_start(form) }}
                     <div class="container">
-                            {{ form_row(form.title, {'attr': {'class': 'form-control', 'v-model': 'message'}}) }}
-                            {{ form_row(form.content, {'attr': {'class': 'form-control', 'name': 'editor1'}}) }}
+                            {{ form_row(form.title, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_row(form.content, {'attr': {'class': 'form-control'}}) }}
                             {{ form_row(form.category, {'attr': {'class': 'form-control'}}) }}
                         {{ form_row(form.save, {'attr': {'class': 'btn btn-success pull-right'}}) }}
                     </div>
