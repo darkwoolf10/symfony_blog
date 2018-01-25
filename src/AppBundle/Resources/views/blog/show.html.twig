@@ -9,7 +9,7 @@
             <div class="list-group-item">
                 <h4>{{ post.content }}</h4>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a href="{% for likes in post.likes if likes.user == app.user %}{{ path('like_delete', {'postId': post.id}) }}{% else %}{{ path('like_add', {'postId': post.id}) }}{% endfor %}">
+                    <a class="btn btn-dark like" href="{% for likes in post.likes if likes.user == app.user %}{{ path('like_delete', {'postId': post.id}) }}{% else %}{{ path('like_add', {'postId': post.id}) }}{% endfor %}">
                 {% endif %}
                         <i class="fa fa-thumbs-up fa-lg"></i> {{ post.likes|length }}
                     </a>
