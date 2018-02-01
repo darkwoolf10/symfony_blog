@@ -62,6 +62,16 @@ class Post
     private $category;
 
     /**
+     * @ORM\ManyToMany(
+     *     targetEntity="Tags",
+     *     cascade={"persist"},
+     *     inversedBy="post"
+     * )
+     * @ORM\JoinTable(name="post_tags")
+     */
+    private $tags;
+
+    /**
      * @ORM\Column(type="datetime")
      * @Assert\DateTime
      */
@@ -71,6 +81,7 @@ class Post
     {
         $this->publishedAt = new \DateTime();
         $this->comment = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId()
@@ -127,6 +138,25 @@ class Post
     {
         $comment->setPost(null);
         $this->comment->removeElement($comment);
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function addTags($tags)
+    {
+        $tags->setPost($this);
+        if (!$this->tags->contains($tags)) {
+            $this->tags->add($tags);
+        }
+    }
+
+    public function removeTags(ArrayCollection $tags)
+    {
+        $tags->setPost(null);
+        $this->tags->removeElement($tags);
     }
 
     public function getAuthor()

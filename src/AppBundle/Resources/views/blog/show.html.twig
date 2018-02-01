@@ -21,7 +21,11 @@
                     <a href="{{ path('edit_post', {'id': post.id}) }}" class="btn btn-primary pointer btn-action"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                 </div>
 
-                {#<code class="category_label">{{ post.category.name }}</code>#}
+                {#Category: <code class="category_label">{{ post.category.name }}</code>#}
+                Tags:
+                {% for tag in post.tags %}
+                    <code class="category_label">{{ tag }}</code>
+                {% endfor %}
                 {% if is_granted('ROLE_ADMIN') %}
                 {% endif %}
             </div>
