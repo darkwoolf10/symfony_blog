@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Post
 {
-
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -60,6 +59,15 @@ class Post
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
+    /**
+     * @ORM\ManyToMany(
+     *     targetEntity="Tags",
+     *     cascade={"persist"},
+     *     inversedBy="post"
+     * )
+     * @ORM\JoinTable(name="post_tags")
+     */
+    private $tags;
 
     /**
      * @ORM\Column(type="datetime")
@@ -71,6 +79,7 @@ class Post
     {
         $this->publishedAt = new \DateTime();
         $this->comment = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId()
@@ -91,7 +100,6 @@ class Post
     public function setContent($content)
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -127,6 +135,25 @@ class Post
     {
         $comment->setPost(null);
         $this->comment->removeElement($comment);
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function addTags($tags)
+    {
+        $tags->setPost($this);
+        if (!$this->tags->contains($tags)) {
+            $this->tags->add($tags);
+        }
+    }
+
+    public function removeTags(ArrayCollection $tags)
+    {
+        $tags->setPost(null);
+        $this->tags->removeElement($tags);
     }
 
     public function getAuthor()
