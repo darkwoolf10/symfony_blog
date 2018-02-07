@@ -64,3 +64,10 @@ knp_menu:
 knp_paginator:
     template:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
+
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable:   true
+            timestampable: true
