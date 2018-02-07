@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -30,6 +31,13 @@ class Post
      * @ORM\Column(type="text")
      */
     private $content;
+
+
+    /**
+     * @Gedmo\Slug(fields={"title", "id"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -70,14 +78,31 @@ class Post
     private $tags;
 
     /**
+     * @var \DateTime $publishedAt
+     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Assert\DateTime
      */
-    private $publishedAt;
+    private $createAt;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated;
+
+    /**
+     * @var \DateTime $contentChanged
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="change", field={"title", "content"})
+     */
+    private $contentChanged;
 
     public function __construct()
     {
-        $this->publishedAt = new \DateTime();
         $this->comment = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
@@ -106,6 +131,32 @@ class Post
     public function getContent()
     {
         return $this->content;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+
+    public function getCreatedAt()
+    {
+        return $this->createAt;
+    }
+
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    public function getContentChanged()
+    {
+        return $this->contentChanged;
     }
 
     public function getCategory()
@@ -179,11 +230,6 @@ class Post
     public function removeLikes(Likes $likes)
     {
         return $this->likes->removeElement($likes);
-    }
-
-    public function getPublishedAt()
-    {
-        return $this->publishedAt;
     }
 
     public function setPublishedAt($publishedAt)
