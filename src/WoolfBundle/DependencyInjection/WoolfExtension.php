@@ -5,7 +5,7 @@ namespace WoolfBundle\DependencyInjection;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class AppExtension extends Extension
+class WoolfExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
