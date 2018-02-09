@@ -24,46 +24,46 @@ _sonata_admin:
 
 homepage:
     path: /blog
-    defaults: { _controller: AppBundle:Blog:index }
+    defaults: { _controller: WoolfBundle:Blog:index }
 
 about:
     path: /about
-    defaults: {_controller: AppBundle:Blog:about}
+    defaults: {_controller: WoolfBundle:Blog:about}
 
 edit_profile:
     path: /edit_profile
 
 create_post:
     path: /blog/create
-    defaults: { _controller: AppBundle:Blog:create }
+    defaults: { _controller: WoolfBundle:Blog:create }
 
 show_post:
   path: /blog/{id}
-  defaults: { _controller: AppBundle:Blog:show }
+  defaults: { _controller: WoolfBundle:Blog:show }
 
 delete_post:
     path: /delete_post/{id}
-    defaults: {_controller: AppBundle:Blog:delete}
+    defaults: {_controller: WoolfBundle:Blog:delete}
 
 edit_post:
     path: /edit_post/{id}
-    defaults: {_controller: AppBundle:Blog:edit}
+    defaults: {_controller: WoolfBundle:Blog:edit}
 
 like_add:
     path: /{postId}/like/add
-    defaults: {_controller: AppBundle:Likes:add}
+    defaults: {_controller: WoolfBundle:Likes:add}
 
 like_delete:
     path: /{postId}/like/delete
-    defaults: {_controller: AppBundle:Likes:delete}
+    defaults: {_controller: WoolfBundle:Likes:delete}
 
 category:
     path: /category/{categoryId}
-    defaults: {_controller: AppBundle:Category:category}
+    defaults: {_controller: WoolfBundle:Category:category}
 
 login:
     path: /login
-    defaults: {_controller: AppBundle:Security:login}
+    defaults: {_controller: WoolfBundle:Security:login}
 
 user_registration:
     path: /register

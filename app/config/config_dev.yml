@@ -9,7 +9,8 @@ framework:
     templating:
         engines: [twig, php]
     translator: { fallbacks: ['%locale%'] }
-app:
+    
+woolf:
   limit_article: 5
 
 web_profiler:

@@ -16,34 +16,41 @@ services:
 
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    AppBundle\:
-        resource: '../../src/AppBundle/*'
+    WoolfBundle\:
+        resource: '../../src/WoolfBundle/*'
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
         exclude: '../../src/AppBundle/{Entity,Repository,Tests}'
-    AppBundle\DataFixtures\ORM\LoadFixtures:
+    WoolfBundle\DataFixtures\ORM\LoadFixtures:
             tags: [doctrine.fixture.orm]
 
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
-    AppBundle\Controller\:
-        resource: '../../src/AppBundle/Controller'
+    WoolfBundle\Controller\:
+        resource: '../../src/WoolfBundle/Controller'
         public: true
         tags: ['controller.service_arguments']
 
     admin.category:
-        class: AppBundle\Admin\CategoryAdmin
-        arguments: [~, AppBundle\Entity\Category, ~]
+        class: WoolfBundle\Admin\CategoryAdmin
+        arguments: [~, WoolfBundle\Entity\Category, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Category }
         public: true
 
     admin.blog:
-        class: AppBundle\Admin\PostAdmin
-        arguments: [~, AppBundle\Entity\Post, ~]
+        class: WoolfBundle\Admin\PostAdmin
+        arguments: [~, WoolfBundle\Entity\Post, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Posts }
         public: true
+
+    admin.user:
+            class: WoolfBundle\Admin\UserAdmin
+            arguments: [~, WoolfBundle\Entity\User, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Users }
+            public: true
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
