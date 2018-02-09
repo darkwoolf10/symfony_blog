@@ -9,6 +9,8 @@ framework:
     templating:
         engines: [twig, php]
     translator: { fallbacks: ['%locale%'] }
+app:
+  limit_article: 5
 
 web_profiler:
     toolbar: true
