@@ -25,7 +25,7 @@ class BlogController extends Controller
         $pagination = $paginator->paginate(
             $posts,
             $request->query->getInt('page', 1)/*page number*/,
-            $request->query->getInt('limit', 6)/*limit per page*/
+            $request->query->getInt('limit', $this->container->getParameter('woolf.limit_article'))/*limit per page*/
 
         );
         return $this->render(
