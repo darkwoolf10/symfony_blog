@@ -67,7 +67,7 @@ login:
 
 user_registration:
     path: /register
-    defaults: {_controller: AppBundle:Registration:register}
+    defaults: {_controller: WoolfBundle:Registration:register}
 
 logout:
     path: /logout
