@@ -1,0 +1,32 @@
+{% extends "@Woolf/layout.html.twig" %}
+{% block body %}
+    <div class="center-block">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <div class="card">
+            <div class="card-header">
+                <h3>Authorization</h3>
+            </div>
+            <div class="card-body">
+                <form action="{{ path('login') }}" method="post">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input class="form-control" type="password" id="password" name="_password" />
+                    </div>
+                    <button class="btn btn-success pull-right" type="submit">login</button>
+                </form>
+            </div>
+        </div>
+        <div class="card text-white bg-info">
+            <div class="card-header"><h2 class="text-center">You do not have an account?</h2></div>
+            <div class="card-body">
+                <h4 class="card-title text-center">click here to register <a style="color: darkred" href="{{ path('user_registration') }}">L I N K</a>.</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -30,3 +30,7 @@
 //   return false;
 //
 // });
+$('.transform-title').on('input', function () {
+  var msg = $(this).val();
+  $('.transform-title-msg').text(msg);
+});
