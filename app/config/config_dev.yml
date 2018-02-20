@@ -12,6 +12,7 @@ framework:
     
 woolf:
   limit_article: 5
+  limit_comment: 5
 
 web_profiler:
     toolbar: true

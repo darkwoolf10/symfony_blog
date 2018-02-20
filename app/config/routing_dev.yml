@@ -61,6 +61,14 @@ category:
     path: /category/{categoryId}
     defaults: {_controller: WoolfBundle:Category:category}
 
+handleSearch:
+    path: /search
+    defaults: {_controller: WoolfBundle:Search:handleSearch}
+
+feadback:
+    path: /feadback
+    defaults: {_controller: WoolfBundle:Feadback:feadback}
+
 login:
     path: /login
     defaults: {_controller: WoolfBundle:Security:login}
