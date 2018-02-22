@@ -5,6 +5,7 @@ namespace WoolfBundle\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,7 @@ class CategoryController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $categories = $em->getRepository('AppBundle:Category')
+        $categories = $em->getRepository('WoolfBundle:Category')
             ->findAll();
 
         return $this->render(
@@ -24,9 +25,13 @@ class CategoryController extends Controller
     /**
      * @Route("/category/{categoryId}", name="category")
      */
-    public function categoryAction($categoryId, EntityManagerInterface $em)
+    public function categoryAction($categoryId, EntityManagerInterface $em, Request $request)
     {
-        $category = $em->getRepository('AppBundle:Category')
+//        $em    = $this->getDoctrine()->getManager();
+//        $dql   = "SELECT post FROM WoolfBundle:Category category WHERE category.id = $categoryId";
+//        $category = $em->createQuery($dql);
+
+        $category = $em->getRepository('WoolfBundle:Category')
             ->find($categoryId);
 
         if (!$category) {
@@ -35,10 +40,18 @@ class CategoryController extends Controller
 
         $posts = $category->getPost();
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $posts,
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 5)/*limit per page*/
+
+        );
+
         return $this->render(
             '@Woolf/blog/category.html.twig', [
+            'pagination' => $pagination,
             'category' => $category,
-            'posts' => $posts,
         ]);
     }
 }

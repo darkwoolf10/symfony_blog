@@ -43,7 +43,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @Route("/blog/create")
      */
     public function createAction(Request $request)
@@ -85,6 +85,7 @@ class BlogController extends Controller
         if(!$post) {
            return $this->render('@Woolf/blog/notFound.html.twig');
         }
+
         return $this->render(
             '@Woolf/blog/show.html.twig', [
             'post' => $post,

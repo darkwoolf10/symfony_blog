@@ -18,7 +18,7 @@ class PostAdmin extends AbstractAdmin
             ->end()
             ->with('Meta data', ['class' => 'col-md-3'])
                 ->add('category', 'sonata_type_model', [
-                    'class' => 'AppBundle\Entity\Category',
+                    'class' => 'WoolfBundle\Entity\Category',
                     'property' => 'name',
                 ])
             ->end()
@@ -40,7 +40,7 @@ class PostAdmin extends AbstractAdmin
         $datagridMapper
             ->add('title')
             ->add('category', null, [], 'entity', [
-                'class'    => 'AppBundle\Entity\Category',
+                'class'    => 'WoolfBundle\Entity\Category',
                 'choice_label' => 'name', // In Symfony2: 'property' => 'name'
             ])
             ->add('content')

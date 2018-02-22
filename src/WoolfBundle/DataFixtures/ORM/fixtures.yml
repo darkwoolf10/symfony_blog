@@ -1,26 +1,26 @@
-AppBundle\Entity\User:
+WoolfBundle\Entity\User:
     user:
         username: admin
         email: woolftreuser@ukr.net
         password: $2y$12$cnAIQSCcvGhlxkN8alsOG.SdPtmqD6zTQAYXujE.qC0eRNYSGPCz6
         roles: ['ROLE_ADMIN']
 
-AppBundle\Entity\Category:
+WoolfBundle\Entity\Category:
     category_{1..4}:
         name: 'category_<current()>'
 
-AppBundle\Entity\Tags:
+WoolfBundle\Entity\Tags:
     tags_{1..5}:
         name: 'tags_<current()>'
 
-AppBundle\Entity\Post:
-    post_{1..15}:
+WoolfBundle\Entity\Post:
+    post_{1..100}:
         title: '<word()>'
         content: '<text()>'
         author: '@user'
         category: '@category_*'
 
-AppBundle\Entity\Comment:
+WoolfBundle\Entity\Comment:
     comment_{1..40}:
         post: '@post_*'
         content: '<word()>'

@@ -17,6 +17,10 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(10)
                     ->min(5)
                 ->end()
+                ->integerNode('limit_comment')
+                    ->defaultValue(10)
+                    ->min(5)
+                ->end()
             ->end()
         ;
 

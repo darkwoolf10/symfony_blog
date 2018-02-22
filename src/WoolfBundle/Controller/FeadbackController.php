@@ -3,6 +3,7 @@
 namespace WoolfBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -13,6 +14,7 @@ class FeadbackController extends Controller
 {
 
     /**
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @Route("/feadback", name="feadback")
      */
     public function feadbackAction(Request $request)
