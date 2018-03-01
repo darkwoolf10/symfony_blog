@@ -25,6 +25,10 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Cron\CronBundle\CronCronBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+//            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new WoolfBundle\WoolfBundle(),
         ];
 

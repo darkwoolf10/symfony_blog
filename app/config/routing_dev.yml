@@ -73,6 +73,10 @@ subscribe:
     path: add/subscribe/{username}
     defaults: {_controller: WoolfBundle:Subscribe:subscribe}
 
+unsubscribing:
+    path: delete/subscribe/{username}
+    defaults: {_controller: WoolfBundle:Subscribe:unsubscribing}
+
 login:
     path: /login
     defaults: {_controller: WoolfBundle:Security:login}
@@ -80,6 +84,16 @@ login:
 user_registration:
     path: /register
     defaults: {_controller: WoolfBundle:Registration:register}
+
+app.swagger_ui:
+    path: /api/doc
+    methods: GET
+    defaults: { _controller: nelmio_api_doc.controller.swagger_ui }
+
+app.swagger:
+    path: /api/doc.json
+    methods: GET
+    defaults: { _controller: nelmio_api_doc.controller.swagger }
 
 logout:
     path: /logout
