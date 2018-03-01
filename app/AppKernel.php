@@ -28,7 +28,7 @@ class AppKernel extends Kernel
             new Cron\CronBundle\CronCronBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-//            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new WoolfBundle\WoolfBundle(),
         ];
 

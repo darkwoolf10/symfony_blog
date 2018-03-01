@@ -6,6 +6,7 @@ framework:
         resource: '%kernel.project_dir%/app/config/routing_dev.yml'
         strict_requirements: true
     profiler: { only_exceptions: false }
+    serializer: { enable_annotations: true }
     templating:
         engines: [twig, php]
     translator: { fallbacks: ['%locale%'] }
@@ -75,3 +76,4 @@ stof_doctrine_extensions:
         default:
             sluggable:   true
             timestampable: true
+

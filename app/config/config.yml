@@ -73,7 +73,13 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-#nelmio_api_doc:
-#    areas:
-#        path_patterns: # an array of regexps
-#            - ^/api(?!/doc$)
+nelmio_api_doc:
+    areas:
+        path_patterns: # an array of regexps
+            - ^/api(?!/doc$)
+    documentation:
+            info:
+                title: My App
+                description: This is an awesome app!
+                version: 1.0.0
+
