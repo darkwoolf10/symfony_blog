@@ -27,10 +27,6 @@ class CategoryController extends Controller
      */
     public function categoryAction($categoryId, EntityManagerInterface $em, Request $request)
     {
-//        $em    = $this->getDoctrine()->getManager();
-//        $dql   = "SELECT post FROM WoolfBundle:Category category WHERE category.id = $categoryId";
-//        $category = $em->createQuery($dql);
-
         $category = $em->getRepository('WoolfBundle:Category')
             ->find($categoryId);
 

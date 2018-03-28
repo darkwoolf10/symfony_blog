@@ -6,25 +6,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use WoolfBundle\Entity\Subscribe;
 
 class SubscribeController extends Controller
 {
 
     /**
-     * @Route("/count")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Route("/subscibe", name="subsribe")
      */
-    public function counterPostsAction()
+    public function subscribeAction(Request $request)
     {
-        $today = date('Y-m-d H:i:s');
-        $yesterday = date('Y-m-d H:i:s',strtotime('-1 day'));
-        $em    = $this->getDoctrine()->getManager();
-        $query = $em->createQuery(
-            'SELECT COUNT(post)
-             FROM WoolfBundle:Post post
-             WHERE post.updated
-             BETWEEN :yesterday AND :today'
-        )->setParameter('today', $today)->setParameter('yesterday', $yesterday);
-        $count = $query->getResult();
-        return new JsonResponse($count);
+            $subscribe = new Subscribe();
+            $subscribe->setEmail($this->getUser()->getEmail());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($subscribe);
+            $em->flush();
+            return new JsonResponse(true);
     }
 }

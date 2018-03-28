@@ -30,8 +30,6 @@ class FeadbackController extends Controller
         if($form->isSubmitted() && $form->isValid() ) {
             $data = $form->getData();
 
-            dump($data);
-
             $message = \Swift_Message::newInstance()
                 ->setSubject('Support From Submission')
                 ->setFrom($data['from'])

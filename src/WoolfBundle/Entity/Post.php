@@ -5,10 +5,12 @@ namespace WoolfBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="WoolfBundle\Repository\PostRepository")
  * @ORM\Table(name="post")
  */
 class Post
@@ -23,12 +25,14 @@ class Post
     /**
      * @Assert\NotBlank()
      * @ORM\Column(type="string")
+     * @Groups({"post"})
      */
     private $title;
 
     /**
      * @Assert\NotBlank()
      * @ORM\Column(type="text")
+     * @Groups({"post"})
      */
     private $content;
 
@@ -42,6 +46,8 @@ class Post
     /**
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\Column(nullable=true)
+     * @SWG\Property(type="string", maxLength=255)
+     * @Groups({"post"})
      */
     private $author;
 
@@ -83,6 +89,7 @@ class Post
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"post"})
      */
     private $createAt;
 
@@ -91,6 +98,7 @@ class Post
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"post"})
      */
     private $updated;
 

@@ -52,6 +52,13 @@ services:
             - { name: sonata.admin, manager_type: orm, label: Posts }
         public: true
 
+    admin.subscribe:
+            class: WoolfBundle\Admin\SubscribeAdmin
+            arguments: [~, WoolfBundle\Entity\Subscribe, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Subscribe }
+            public: true
+
     admin.user:
             class: WoolfBundle\Admin\UserAdmin
             arguments: [~, WoolfBundle\Entity\User, ~]

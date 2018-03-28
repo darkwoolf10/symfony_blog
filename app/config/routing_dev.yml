@@ -26,6 +26,10 @@ homepage:
     path: /blog
     defaults: { _controller: WoolfBundle:Blog:index }
 
+#search_results:
+#    path: /search/str
+#    defaults: {_controller: WoolfBundle:Search:search}
+
 about:
     path: /about
     defaults: {_controller: WoolfBundle:Blog:about}
@@ -61,16 +65,16 @@ category:
     path: /category/{categoryId}
     defaults: {_controller: WoolfBundle:Category:category}
 
-handleSearch:
-    path: /search
-    defaults: {_controller: WoolfBundle:Search:handleSearch}
+search:
+    path: /search/{str}
+    defaults: {_controller: WoolfBundle:Search:search}
 
 feadback:
     path: /feadback
     defaults: {_controller: WoolfBundle:Feadback:feadback}
 
 subscribe:
-    path: add/subscribe/{username}
+    path: /subscribe
     defaults: {_controller: WoolfBundle:Subscribe:subscribe}
 
 unsubscribing:

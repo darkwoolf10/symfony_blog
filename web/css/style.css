@@ -94,3 +94,16 @@ hr {
 .fa-heart {
   color: #fff;
 }
+
+.fa-bookmark {
+  color: #fff;
+}
+
+.fa-bookmark:hover {
+  padding-top: 5px;
+  color: #f3d8d8;
+}
+
+.space-left {
+  margin-left: 3%;
+}

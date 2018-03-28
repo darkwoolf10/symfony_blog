@@ -9,7 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Notification extends Command
 {
-    public function __construct(EntityManagerInterface $em)
+    private $mailer;
+
+    public function __construct(EntityManagerInterface $em, \Swift_Mailer $mailer)
     {
         parent::__construct();
 
@@ -25,6 +27,12 @@ class Notification extends Command
         $count = $query->getResult();
 
         $this->count = $count[0];
+
+        $queryForEmail = $em->createQuery('SELECT email.email FROM WoolfBundle:Subscribe email');
+        $emails = $queryForEmail->getResult();
+        $this->emails = $emails;
+
+        $this->mailer = $mailer;
     }
 
     protected function configure()
@@ -38,12 +46,45 @@ class Notification extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln($this->count);
+        $output->write($this->count);
+        $output->writeln( " posts today.");
         $output->writeln([
             '+------------------------------+',
             '|Users are notified about posts|',
             '+------------------------------+',
             '',
         ]);
+
+        $count = $this->count;
+        $count = implode(', ', $count);
+
+        if($count == 0) {
+            $output->writeln("Today there are no posts");
+        } else {
+            $output->writeln([
+                '+------------------+',
+                '|Notified such as: |',
+                '+------------------+',
+            '',]);
+            foreach ($this->emails as $email) {
+                $output->writeln($email);
+            }
+
+            foreach ($this->emails as $email) {
+                $count = $this->count;
+                $email = implode(', ', $email);
+                $count = implode(', ', $count);
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Read new posts on our blog')
+                    // can not access the parameters
+                    ->setFrom('woolftreuser@gmail.com')
+                    ->setTo($email)
+                    ->setBody(
+                        "Today published ".$count." posts"
+                    );
+                $this->mailer->send($message);
+            }
+        }
     }
 }

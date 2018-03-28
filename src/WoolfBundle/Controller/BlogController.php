@@ -121,7 +121,9 @@ class BlogController extends Controller
      */
     public function editAction(Request $request, Post $post)
     {
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class, $post, [
+            'method' => 'GET',
+        ]);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {

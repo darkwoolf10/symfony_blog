@@ -1,8 +1,12 @@
-app:
+app_web:
     resource: '@WoolfBundle/Controller/'
     type: annotation
 
-app.swagger_ui:
-    path: /api/doc
-    methods: GET
-    defaults: { _controller: nelmio_api_doc.controller.swagger_ui }
+app_api:
+    resource: '@WoolfBundle/Controller/Api'
+    type: annotation
+
+#app.swagger_ui:
+#    path: /api/doc
+#    methods: GET
+#    defaults: { _controller: nelmio_api_doc.controller.swagger_ui }

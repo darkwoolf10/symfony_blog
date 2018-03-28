@@ -1,15 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: woolf
- * Date: 27.02.18
- * Time: 18:42
- */
 
 namespace WoolfBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
 
-class PostRepository
+class PostRepository extends EntityRepository
 {
+    public function search($str) {
+        $query = $this->createQueryBuilder('p')
+            ->where('p.title LIKE :str')
+            ->setParameter('str', '%'.$str.'%')
+            ->getQuery()
+        ;
 
+        return $query;
+    }
 }

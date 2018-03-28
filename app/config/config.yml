@@ -10,6 +10,8 @@ parameters:
 
 framework:
     #esi: ~
+    templating:
+        engines: [twig, php]
     translator: { fallbacks: ['%locale%'] }
     serializer: { enable_annotations: true }
     secret: '%secret%'
@@ -79,7 +81,7 @@ nelmio_api_doc:
             - ^/api(?!/doc$)
     documentation:
             info:
-                title: My App
-                description: This is an awesome app!
-                version: 1.0.0
+                title: Bloger
+                description: My blog for GeekHub!
+                version: 0.8.0
 

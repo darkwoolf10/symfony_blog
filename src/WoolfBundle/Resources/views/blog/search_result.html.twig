@@ -1,0 +1,6 @@
+{% extends '@Woolf/base.html.twig' %}
+{% block body %}
+    {% for post in results %}
+        <a href="{{ path('show_post', {'id': post.id}) }}"><p>{{ post.title }}</p>
+    {% endfor %}
+{% endblock %}

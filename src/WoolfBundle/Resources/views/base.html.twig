@@ -31,11 +31,11 @@
                         </ul>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <a href="{{ path('logout') }}">
-                                <button type="button" class="btn btn-primary login">{{ 'Logout'|trans }}</button>
+                                <button type="button" class="btn btn-primary login space-left">{{ 'Logout'|trans }}</button>
                             </a>
                         {% else %}
                             <a href="{{ path('login') }}">
-                                <button type="button" class="btn btn-primary login">{{ 'Sign in'|trans }}</button>
+                                <button type="button" class="btn btn-primary login space-left">{{ 'Sign in'|trans }}</button>
                             </a>
                             <a href="{{ path('user_registration') }}">
                                 <button type="button" class="btn btn-primary login">{{ 'Sign up'|trans }}</button>

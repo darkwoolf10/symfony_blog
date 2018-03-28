@@ -49,10 +49,20 @@ class User implements UserInterface
      */
     private $likes;
 
-    /**
-     * @ORM\Column(type="json_array", nullable=true)
-     */
-    private $subscribe;
+//    /**
+//     * @ORM\ManyToMany(targetEntity="User", mappedBy="author")
+//     */
+//    private $subscribers;
+
+//    /**
+//     * @ORM\ManyToMany(targetEntity="User", inversedBy="subscribers")
+//     *
+//     * @ORM\JoinTable(name="subscribe",
+//     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+//     *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")}
+//     *      )
+//     */
+//    private $author;
 
     /**
      * @ORM\Column(type="json_array")
@@ -61,7 +71,8 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->subscribe = new ArrayCollection();
+//        $this->subscribers = new ArrayCollection();
+        $this->author = new ArrayCollection();
     }
 
     public function __toString()
@@ -145,24 +156,30 @@ class User implements UserInterface
         return $this->likes->removeElement($likes);
     }
 
-    public function getSubscribe()
+//    public function getSubscribers()
+//    {
+//        return $this->subscribers;
+//    }
+//
+//    public function setSubscribers($subscribers)
+//    {
+//        $this->subscribers = $subscribers;
+//    }
+//
+//    public function addSubscribers($subscribers)
+//    {
+//        return $this->subscribers[] = $subscribers;
+//    }
+
+
+    public function getAuthor()
     {
-        return $this->subscribe;
+        return $this->author;
     }
 
-    public function setSubscribe($subscribe)
+    public function setAuthor($author)
     {
-        $this->subscribe = $subscribe;
-    }
-
-    public function addSubscribe($subscribe)
-    {
-        return $this->subscribe[] = $subscribe;
-    }
-
-    public function removeSubscribe($subscribe)
-    {
-        return $this->subscribe->removeElement($subscribe);
+        $this->author = $author;
     }
 
     public function eraseCredentials()
