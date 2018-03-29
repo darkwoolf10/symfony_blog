@@ -11,7 +11,7 @@ class SearchController extends Controller
 {
 
     /**
-     * @Route("search")
+     * @Route("/search")
      */
     public function searchFormAction(Request $request)
     {
@@ -20,7 +20,7 @@ class SearchController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $search = $data['search'];
-            return $this->redirectToRoute('search_results', ['str' => $search]);
+            return $this->redirectToRoute('search', ['str' => $search]);
         }
         return $this->render('@Woolf/blog/search.html.twig', [
             'form' => $form->createView(),
@@ -28,11 +28,15 @@ class SearchController extends Controller
     }
 
     /**
-     * @Route("/search/{str}", name="search_results")
+     * @Route("/search/{str}", name="search")
      */
     public function searchAction($str)
     {
         $results = $this->getDoctrine()->getRepository('WoolfBundle:Post')->search($str)->getResult();
+
+//        if(!$results){
+//            throw $this->createNotFoundException('There are no posts for this request');
+//        }
 
         return $this->render('@Woolf/blog/search_result.html.twig', [
             'results' => $results,

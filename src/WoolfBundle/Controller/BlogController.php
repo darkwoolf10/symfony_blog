@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WoolfBundle\Entity\Post;
+use WoolfBundle\Form\SearchType;
 
 class BlogController extends Controller
 {
@@ -26,11 +27,20 @@ class BlogController extends Controller
             $posts,
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', $this->container->getParameter('woolf.limit_article'))/*limit per page*/
-
         );
+
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $search = $data['search'];
+            return $this->redirectToRoute('search', ['str' => $search]);
+        }
+
         return $this->render(
             '@Woolf/blog/index.html.twig', [
             'pagination' => $pagination,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -83,7 +93,7 @@ class BlogController extends Controller
         $post = $repository->find($id);
 
         if(!$post) {
-           return $this->render('@Woolf/blog/notFound.html.twig');
+            throw $this->createNotFoundException('Post not found');
         }
 
         return $this->render(

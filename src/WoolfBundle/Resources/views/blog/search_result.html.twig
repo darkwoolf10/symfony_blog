@@ -1,6 +1,10 @@
 {% extends '@Woolf/base.html.twig' %}
 {% block body %}
-    {% for post in results %}
-        <a href="{{ path('show_post', {'id': post.id}) }}"><p>{{ post.title }}</p>
-    {% endfor %}
+    {% if results|length > 0  %}
+        {% for post in results %}
+            <a href="{{ path('show_post', {'id': post.id}) }}"><p>{{ post.title }}</p>
+        {% endfor %}
+    {% else %}
+        <h3>There are no posts for this request</h3>
+    {% endif %}
 {% endblock %}

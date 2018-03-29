@@ -26,10 +26,6 @@ homepage:
     path: /blog
     defaults: { _controller: WoolfBundle:Blog:index }
 
-#search_results:
-#    path: /search/str
-#    defaults: {_controller: WoolfBundle:Search:search}
-
 about:
     path: /about
     defaults: {_controller: WoolfBundle:Blog:about}
