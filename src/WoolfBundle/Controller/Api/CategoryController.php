@@ -2,31 +2,49 @@
 
 namespace WoolfBundle\Controller\Api;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\RestBundle\Controller\FOSRestController;
+use JMS\Serializer\SerializerBuilder;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Swagger\Annotations as SWG;
+use WoolfBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class CategoryController extends Controller
+class CategoryController extends FOSRestController
 {
 
     /**
-     * @Route("/api/category")
+     * @Route("/api/category/{id}", methods={"GET"})
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns the rewards of an user",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Category::class)
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="string",
+     *     description="The field used to order rewards"
+     * )
+     * @SWG\Tag(name="category")
      */
-    public function categoryAction()
+    public function categoryAction(Request $request, $id)
     {
-        $em = $this->get('doctrine.orm.entity_manager');
-        $categories = $em->getRepository('WoolfBundle:Category')
-            ->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository(Category::class)->find($id);
 
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
-        $serializer = new Serializer($normalizers, $encoders);
-        $data = $serializer->serialize($categories, 'json');
-        return new JsonResponse($data);
+        if(!$category){
+            throw $this->createNotFoundException('Category not found');
+        }
+
+        $serializer = SerializerBuilder::create()->build();
+        $category = $serializer->serialize($category, 'json');
+
+        return new JsonResponse($category, Response::HTTP_OK);
     }
 }

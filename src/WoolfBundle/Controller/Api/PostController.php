@@ -33,7 +33,15 @@ class PostController extends FOSRestController
     public function postAction($id, EntityManagerInterface $em)
     {
         $post = $em->getRepository(Post::class)->find($id);
-        $view = $this->view($post, 200);
+
+        if (!$post){
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        $view = $this->view($post, 200)
+            ->setTemplate("WoolfBundle:blog:show.html.twig")
+            ->setTemplateVar('post')
+        ;
 
         return $this->handleView($view);
     }

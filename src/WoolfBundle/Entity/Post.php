@@ -191,11 +191,11 @@ class Post
         }
     }
 
-    public function removeComment(Comments $comment)
-    {
-        $comment->setPost(null);
-        $this->comment->removeElement($comment);
-    }
+//    public function removeComment(Comments $comment)
+//    {
+//        $comment->setPost(null);
+//        $this->comment->removeElement($comment);
+//    }
 
     public function getTags()
     {

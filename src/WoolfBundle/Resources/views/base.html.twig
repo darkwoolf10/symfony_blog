@@ -30,6 +30,10 @@
                             {% endif %}
                         </ul>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {#{% block search %}{% endblock %}#}
+                            {{ render(controller(
+                                'WoolfBundle:Search:searchForm'
+                            )) }}
                             <a href="{{ path('logout') }}">
                                 <button type="button" class="btn btn-primary login space-left">{{ 'Logout'|trans }}</button>
                             </a>

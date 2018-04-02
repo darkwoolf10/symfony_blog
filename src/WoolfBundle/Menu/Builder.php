@@ -27,7 +27,7 @@ class Builder implements ContainerAwareInterface
             ])
         ;
         $menu
-            ->addChild('Feadback', ['route' => 'feadback'])
+            ->addChild('Feedback', ['route' => 'feadback'])
             ->setAttributes([
                 'class' => 'list-group-item list-group-item-action text-center'
             ])

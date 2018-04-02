@@ -52,9 +52,6 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts: [admin]
 
-#swiftmailer:
-#    delivery_addresses: ['me@example.com']
-
 white_october_breadcrumbs: ~
 
 knp_menu:
@@ -76,4 +73,7 @@ stof_doctrine_extensions:
         default:
             sluggable:   true
             timestampable: true
+
+fos_rest: ~
+
 

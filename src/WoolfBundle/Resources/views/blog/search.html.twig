@@ -1,4 +1,6 @@
 {% block search %}
-    {{ form_start(form) }}
+    {{ form_start(form, { 'attr': {'class': 'form-inline'}}) }}
+    {{ form_widget(form.search) }}
+    {{ form_widget(form.send, { 'attr': {'class': 'btn btn-outline-success my-2 my-sm-0'}}) }}
     {{ form_end(form) }}
 {% endblock %}

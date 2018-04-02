@@ -4,6 +4,7 @@ namespace WoolfBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -20,6 +21,7 @@ class Category
 
     /**
      * @ORM\Column(type="string")
+     * @Groups({"category"})
      */
     private $name;
 
