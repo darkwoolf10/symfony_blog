@@ -39,12 +39,12 @@ class CategoryController extends FOSRestController
         $category = $em->getRepository(Category::class)->find($id);
 
         if(!$category){
-            throw $this->createNotFoundException('Category not found');
+            return new JsonResponse($category, Response::HTTP_BAD_REQUEST);
         }
 
         $serializer = SerializerBuilder::create()->build();
-        $category = $serializer->serialize($category, 'json');
+        $categories = $serializer->serialize($category, 'json');
 
-        return new JsonResponse($category, Response::HTTP_OK);
+        return new JsonResponse($categories, Response::HTTP_OK);
     }
 }

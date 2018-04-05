@@ -7,6 +7,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use WoolfBundle\Entity\Post;
 
 class PostController extends FOSRestController
@@ -35,7 +37,7 @@ class PostController extends FOSRestController
         $post = $em->getRepository(Post::class)->find($id);
 
         if (!$post){
-            throw $this->createNotFoundException('Post not found');
+            return new JsonResponse($post, Response::HTTP_BAD_REQUEST);
         }
 
         $view = $this->view($post, 200)
