@@ -50,6 +50,10 @@ hr {
   cursor: pointer;
 }
 
+.btn{
+  cursor: pointer;
+}
+
 .btn-action {
   -webkit-transition: transform 0.1s ease-in-out;
   -moz-transition:transform 1s ease-in-out;

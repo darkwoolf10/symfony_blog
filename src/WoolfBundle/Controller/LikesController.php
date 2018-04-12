@@ -1,6 +1,7 @@
 <?php
 namespace WoolfBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use WoolfBundle\Entity\Likes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,9 +12,9 @@ class LikesController extends Controller
 
     /**
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
-     * @Route("{postId}/like/add", name="like_add")
+     * @Route("{postId}/like", name="like", options={"expose" = true})
      */
-    public function addAction($postId)
+    public function likeAction($postId)
     {
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository('WoolfBundle:Post')->find($postId);
@@ -22,40 +23,22 @@ class LikesController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $like = new Likes();
-        $like->setUser($this->getUser());
-        $like->setPost($post);
+        $user = $this->getUser();
+        $like = $em->getRepository(Likes::class)->findOneBy(['user' => $user, 'post' => $post]);
 
-        $em->persist($like);
-        $em->flush();
+        if ($like === null) {
+            $like = new Likes();
+            $like->setUser($user);
+            $like->setPost($post);
+            $em->persist($like);
+            $em->flush();
 
-        return $this->redirectToRoute('show_post', [
-            'id' => $postId,
-        ]);
-    }
-
-    /**
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
-     * @Route("{postId}/like/delete", name="like_delete")
-     */
-    public function deleteAction($postId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $post = $em->getRepository('WoolfBundle:Post')->find($postId);
-
-        if (!$post) {
-            throw $this->createNotFoundException();
-        }
-
-        $likes = $em->getRepository('WoolfBundle:Likes')->findBy(['post' => $post->getId(), 'user' => $this->getUser()]);
-
-        foreach ($likes as $like) {
+            return new JsonResponse(['result' => 'success']);
+        } else {
             $em->remove($like);
-        }
+            $em->flush();
 
-        $em->flush();
-        return $this->redirectToRoute('show_post', [
-            'id' => $postId,
-        ]);
+            return new JsonResponse(['result' => 'failed']);
+        }
     }
 }

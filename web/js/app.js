@@ -5,48 +5,38 @@
 // //   })
 // // });
 //
-// $(document).on('click', 'button.like', function(){
-//   var id = $(".like").attr("data-post-id");
-//   $.ajax({
-//     url:id + "/like",
-//     type: "POST",
-//     dataType: "json",
-//     data: {
-//     },
-//     async: true,
-//     success: function (data)
-//     {
-//       console.log(data);
-//       // console.log(data.result)
-//       if (data.result == 'success'){
-//         $(".fa-heart").css("color", "red");
-//         location.reload();
-//       } else {
-//         $('.like_info').show('slow', function () {
-//         })
-//       }
-//     }
-//   });
-//   return false;
-//
-// });
+$(document).on('click', 'button.like', function(){
+  $.ajax({
+    // url:id + "/like",
+    url: Routing.generate('like', {postId: $(".like").attr("data-post-id")}),
+    type: "POST",
+    dataType: "json",
+    async: true,
+    success: function (data)
+    {
+      if (data.result == 'success') {
+        $('.heart').css('color', 'red');
+        var count = parseInt($('#like_count').html(), 10);
+        $('#like_count').html(count+1);
+      } else {
+        $('.heart').css('color', 'black');
+        var count = parseInt($('#like_count').html(), 10);
+        $('#like_count').html(count-1);
+      }
+    }
+  });
+  return false;
+
+});
 
 $(document).on('click', 'button.subscribe', function () {
-  that = $(this);
   $.ajax({
     type: "POST",
     url: Routing.generate('subscribe'),
     dataType: "json",
-    data: {
-      "success": "You are subscribe!"
-    },
     async: true,
-    // beforeSend: function (xhr) {
-    //   xhr.setRequestHeader ("Authorization", "Basic " + btoa("admin" + ":" + "1234"));
-    // },
     success: function (data)
     {
-      console.log(data);
       if(data.result == true) {
         $('.ajax-results').html("Subscribe");
         $('.ajax-results-description').html("You are subscribe");

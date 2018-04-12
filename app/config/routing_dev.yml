@@ -49,13 +49,13 @@ edit_post:
     path: /edit_post/{id}
     defaults: {_controller: WoolfBundle:Blog:edit}
 
-like_add:
-    path: /{postId}/like/add
-    defaults: {_controller: WoolfBundle:Likes:add}
-
-like_delete:
-    path: /{postId}/like/delete
-    defaults: {_controller: WoolfBundle:Likes:delete}
+#like_add:
+#    path: /{postId}/like/add
+#    defaults: {_controller: WoolfBundle:Likes:add}
+#
+#like_delete:
+#    path: /{postId}/like/delete
+#    defaults: {_controller: WoolfBundle:Likes:delete}
 
 category:
     path: /category/{categoryId}

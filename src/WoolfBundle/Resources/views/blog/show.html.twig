@@ -14,9 +14,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="ajax-results"></div>
+                <h1><div class="ajax-results-description"></div></h1>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -35,10 +35,8 @@
         <div class="list-group-item">
             <h4>{{ post.content|raw }}</h4>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a class="btn btn-dark like" href="{% for likes in post.likes if likes.user == app.user %}{{ path('like_delete', {'postId': post.id}) }}{% else %}{{ path('like_add', {'postId': post.id}) }}{% endfor %}">
+                <button class="btn btn-dark like" data-post-id="{{ post.id }}"><i class="fas fa-heart fa-lg heart"></i></button><b id="like_count"> {{ post.likes|length }}</b>
             {% endif %}
-                    <i class="fa fa-thumbs-up fa-lg"></i> {{ post.likes|length }}
-                </a>
             <div class="pull-right">
                 <form action="{{ url('delete_post', { id: post.id }) }}" method="post">
                     <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}" />
