@@ -5,14 +5,31 @@
     <div class="like_info alert alert-danger" style="display: none">
         Like is already standing
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title ajax-results" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="ajax-results"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="list-group">
         <div class="list-group-item active">
             <h2>
                 {{ post.title }}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a class="pull-right" href="{{ path('subscribe', {'username': post.author}) }}"><i class="fa fa-bookmark fa-lg"></i></a>
+                    <button class="btn btn-success subscribe pull-right" data-toggle="modal" data-target="#exampleModal" ><i class="far fa-check-square fa-2x"></i>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </button>
                 {% endif %}
+
             </h2>
         </div>
         <div class="list-group-item">
@@ -25,9 +42,9 @@
             <div class="pull-right">
                 <form action="{{ url('delete_post', { id: post.id }) }}" method="post">
                     <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}" />
-                    <button type="submit" class="btn btn-danger pointer btn-action"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>
+                    <button type="submit" class="btn btn-danger pointer btn-action"><i class="fas fa-trash-alt fa-lg" aria-hidden="true"></i></button>
                 </form>
-                <a href="{{ path('edit_post', {'id': post.id}) }}" class="btn btn-primary pointer btn-action"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                <a href="{{ path('edit_post', {'id': post.id}) }}" class="btn btn-primary pointer btn-action"><i class="fas fa-pencil-alt fa-lg" aria-hidden="true"></i></a>
             </div>
 
             {#<code class="category_label">{{ post.category.name }}</code>#}

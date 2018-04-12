@@ -2,39 +2,46 @@
 
 namespace WoolfBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use WoolfBundle\Entity\Subscribe;
 
 class SubscribeController extends Controller
 {
 
     /**
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
-     * @Route("/subscibe", name="subsribe")
+     * @Route("/subscribe", name="subscribe", options={"expose" = true})
+     * @Method({"POST"})
      */
-    public function subscribeAction()
+    public function subscribeAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $repository = $em->getRepository('WoolfBundle:Subscribe');
-        $user = $this->getUser()->getUsername();
-        $subscribe = $repository->findOneBy($user);
-        var_dump($subscribe);
+        $userEmail = $this->getUser()->getEmail();
+        $subscribe = $repository->findOneByEmail($userEmail);
+
         if(!$subscribe){
             $subscribe = new Subscribe();
             $subscribe->setEmail($this->getUser()->getEmail());
             $em->persist($subscribe);
             $em->flush();
+            $data = [
+              'result'=>true,
+            ];
 
-            return new JsonResponse(true);
+            return new JsonResponse($data);
         } else {
             $em->remove($subscribe);
             $em->flush();
+            $data = [
+                'result'=>false,
+            ];
 
-            return new JsonResponse(false);
+            return new JsonResponse($data);
         }
     }
 }

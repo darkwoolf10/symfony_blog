@@ -69,13 +69,9 @@ feadback:
     path: /feadback
     defaults: {_controller: WoolfBundle:Feadback:feadback}
 
-subscribe:
-    path: /subscribe
-    defaults: {_controller: WoolfBundle:Subscribe:subscribe}
-
-unsubscribing:
-    path: delete/subscribe/{username}
-    defaults: {_controller: WoolfBundle:Subscribe:unsubscribing}
+#subscribe:
+#    path: /subscribe
+#    defaults: {_controller: WoolfBundle:Subscribe:subscribe}
 
 login:
     path: /login

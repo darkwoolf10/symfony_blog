@@ -15,7 +15,7 @@
                         {% for tag in post.tags %}
                             <code>{{ tag }}</code>
                         {% endfor %}
-                        <a class="btn btn-primary pull-right" href="{{ path('show_post', {'id': post.id}) }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> {{ 'Read more'|trans }}</a>
+                        <a class="btn btn-primary pull-right" href="{{ path('show_post', {'id': post.id}) }}">{{ 'Read more'|trans }} <i class="fas fa-arrow-circle-right" aria-hidden="true"></i></a>
                     </p>
                 </div>
             </div>

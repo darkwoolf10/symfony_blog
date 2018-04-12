@@ -22,7 +22,9 @@ class FeadbackController extends Controller
         $form = $this->createFormBuilder()
             ->add('from', EmailType::class)
             ->add('message', TextAreaType::class)
-            ->add('save', SubmitType::class)
+            ->add('send', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-primary pull-right'],
+            ])
             ->getForm()
         ;
         $form->handleRequest($request);

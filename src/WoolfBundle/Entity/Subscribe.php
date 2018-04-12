@@ -21,7 +21,7 @@ class Subscribe
     private $id;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(name="email", type="string", unique=true)
      */
     private $email;
 

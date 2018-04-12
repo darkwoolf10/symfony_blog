@@ -30,6 +30,39 @@
 //   return false;
 //
 // });
+
+$(document).on('click', 'button.subscribe', function () {
+  that = $(this);
+  $.ajax({
+    type: "POST",
+    url: Routing.generate('subscribe'),
+    dataType: "json",
+    data: {
+      "success": "You are subscribe!"
+    },
+    async: true,
+    // beforeSend: function (xhr) {
+    //   xhr.setRequestHeader ("Authorization", "Basic " + btoa("admin" + ":" + "1234"));
+    // },
+    success: function (data)
+    {
+      console.log(data);
+      if(data.result == true) {
+        $('.ajax-results').html("Subscribe");
+        $('.ajax-results-description').html("You are subscribe");
+      } else if (data.result == false){
+        $('.ajax-results').html("Unsubscribe");
+        $('.ajax-results-description').html("You are unsubscribe");
+      }
+    },
+    error: function () {
+      console.log("error");
+    }
+  });
+
+  return false;
+});
+
 $('.transform-title').on('input', function () {
   var msg = $(this).val();
   $('.transform-title-msg').text(msg);
